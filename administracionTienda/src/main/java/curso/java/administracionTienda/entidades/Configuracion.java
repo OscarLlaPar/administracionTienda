@@ -12,13 +12,14 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table(name="roles")
-public class Rol {
-	
+@Table(name="configuracion")
+public class Configuracion {
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="rol")
-	private String rol;
-	
-	
+	@Column(name="clave")
+	private String clave;
+	@Column(name="valor")
+	private String valor;
+	@Column(name="tipo")
+	private String tipo;
 }

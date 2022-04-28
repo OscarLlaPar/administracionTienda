@@ -12,13 +12,20 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table(name="roles")
-public class Rol {
-	
+@Table(name="detalles_pedido")
+public class DetallePedido {
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="rol")
-	private String rol;
-	
-	
+	@Column(name="id_pedido")
+	private int pedido;
+	@Column(name="id_producto")
+	private int producto;
+	@Column(name="precio_unidad")
+	private float precioUd;
+	@Column(name="unidades")
+	private int unidades;
+	@Column(name="impuesto")
+	private float impuesto;
+	@Column(name="total")
+	private double total;
 }

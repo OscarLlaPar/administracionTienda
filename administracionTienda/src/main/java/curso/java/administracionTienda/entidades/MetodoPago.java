@@ -12,13 +12,10 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table(name="roles")
-public class Rol {
-	
+@Table(name="metodos_pago")
+public class MetodoPago {
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="rol")
-	private String rol;
-	
-	
+	@Column(name="metodo_pago")
+	private String metodoPago;
 }
