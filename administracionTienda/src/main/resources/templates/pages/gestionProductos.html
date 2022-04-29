@@ -15,14 +15,12 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Gestión de productos</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="inicio.html">Inicio</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/login/inicio}">Inicio</a></li>
                             <li class="breadcrumb-item active">Productos</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                                .
+                                <a class="btn btn-primary" href="nuevoProducto.html">Nuevo producto</a>
                             </div>
                         </div>
                         <div class="card mb-4">
@@ -31,33 +29,39 @@
                                 Productos
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                            	
+                                <table class="table" id="datatablesSimple">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Descripción</th>
+                                            <th>Categoría</th>
+                                            <th>Precio</th>
+                                            <th>Stock</th>
+                                            <th>Fecha de alta</th>
+                                            <th>Fecha de baja</th>
+                                            <th>Impuesto</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody th:each="producto : ${productos}">
-                                        <tr>
-                                        	<td th:text="${producto.nombre}"></td>
+                                    <tbody>
+                                        <tr th:each="producto : ${productos}">
+                                        	<form action="productos/editar" th:object="${productoEnCurso}" method="post">
+                                        	<td><input type="text" th:name="nombre" class="w-75"  th:value="${producto.nombre}"></td>
+                                        	<td><input type="text" name="descripcion" th:value="${producto.descripcion}"></td>
+                                        	<td><input class="w-25" type="text" name="categoria" th:value="${producto.categoria}"></td>
+                                        	<td><input class="w-50" name="precio" type="number" step="any" th:value="${producto.precio}"></td>
+                                        	<td><input class="w-50" name="stock" type="number" th:value="${producto.stock}"></td>
+                                        	<td th:text="${producto.fechaAlta}"></td>
+                                        	<td th:text="${producto.fechaBaja}"></td>
+                                        	<td><input class="w-50" name="impuesto" type="number" step="any" th:value="${producto.impuesto}"></td>
+                                        	<td><input type="hidden" name="id" th:value="${producto.id}"></td>
+                                        	<td><button type="submit" name="idEditar" class="btn btn-secondary" th:value="${producto.id}">Editar</button></td>
+                                        	<td th:if="${producto.fechaBaja == null}"><a class="btn btn-danger" th:href="@{productos/baja(id=${producto.id})}">Baja</a></td>
+                                        	</form>
                                         </tr>
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>

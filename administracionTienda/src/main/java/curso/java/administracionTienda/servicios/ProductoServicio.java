@@ -1,5 +1,6 @@
 package curso.java.administracionTienda.servicios;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,20 @@ public class ProductoServicio {
 	
 	public List<Producto> obtenerProductos() {
 		return productoRepositorio.findAll();
+	}
+	
+	public Producto obtenerProducto(int id) {
+		return productoRepositorio.findById(id).get();
+	}
+	
+	public void darDeBaja(int id) {
+		Producto p= obtenerProducto(id);
+		p.setFechaBaja(new Timestamp(System.currentTimeMillis()));
+		productoRepositorio.save(p);
+	}
+	
+	public void editarProducto(Producto p) {
+		productoRepositorio.save(p);
 	}
 	
 }

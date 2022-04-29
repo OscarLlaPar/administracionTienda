@@ -1,5 +1,7 @@
 package curso.java.administracionTienda.servicios;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
@@ -21,13 +23,17 @@ public class UsuarioServicio{
 		
 		Usuario u=usuarioRepositorio.findById(email).get();
 
-		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(u.getNombre()+password))&& u.getRol()!=1) {
+		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(u.getNombre()+password))&& !u.getRol().getRol().equals("Cliente")) {
 			return u;
 		}
 		else {
 			return null;
 		}
 		
+	}
+	
+	public List <Usuario> mostrarUsuariosPorRol(String rol){
+		return usuarioRepositorio.findAllByRol(rol);
 	}
 
 	

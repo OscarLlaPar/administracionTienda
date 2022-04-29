@@ -15,22 +15,22 @@
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body"><a  class="link-light" href="productos">Gestionar productos</a></div>
+                                    <div class="card-body"><a  class="link-light" th:href="@{/productos}">Gestionar productos</a></div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body"><a>Gestionar pedidos</a></div>
+                                    <div class="card-body"><a class="link-light" th:href="@{/pedidos}">Gestionar pedidos</a></div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body"><a>Gestionar clientes</a></div>
+                                    <div class="card-body"><a class="link-light" th:href="@{/login/clientes}" >Gestionar clientes</a></div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body"><a>Gestionar empleados</a></div>
+                                    <div class="card-body"><a class="link-light" th:href="@{/login/empleados}" >Gestionar empleados</a></div>
                                 </div>
                             </div>
                         </div>

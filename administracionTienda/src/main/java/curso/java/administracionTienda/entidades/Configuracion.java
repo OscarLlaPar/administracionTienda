@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Configuracion {
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="clave")
+	@Column(name="clave", unique=true)
 	private String clave;
 	@Column(name="valor")
 	private String valor;
