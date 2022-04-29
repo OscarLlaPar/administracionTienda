@@ -32,9 +32,23 @@ public class UsuarioServicio{
 		
 	}
 	
+	public Usuario buscarUsuarioPorEmail(String email) {
+		return usuarioRepositorio.findById(email).get();
+	}
+	
 	public List <Usuario> mostrarUsuariosPorRol(String rol){
 		return usuarioRepositorio.findAllByRol(rol);
 	}
-
 	
+	public void editarUsuario(Usuario u) {
+		usuarioRepositorio.save(u);
+	}
+	
+	public void bajaUsuario(Usuario u) {
+		usuarioRepositorio.delete(u);
+	}
+	
+	public String encriptarClave(Usuario u) {
+		return UsuarioUtil.obtenerSha2(u.getNombre()+u.getClave());
+	}
 }

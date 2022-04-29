@@ -20,7 +20,10 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <a class="btn btn-primary" href="nuevoProducto.html">Nuevo producto</a>
+                                <a class="btn btn-primary" th:href="@{/productos/alta}">Nuevo producto</a>
+                                <a class="btn btn-primary" th:href="@{/productos/nuevaCategoria}">Nueva categoría</a>
+                                <a class="btn btn-success" th:href="@{/productos/exportar}">Exportar productos</a>
+                                <a th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}" class="btn btn-success" th:href="@{/productos/importar}">Importar productos</a>
                             </div>
                         </div>
                         <div class="card mb-4">

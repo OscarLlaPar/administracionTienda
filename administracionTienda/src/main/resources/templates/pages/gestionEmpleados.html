@@ -20,7 +20,7 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-body">
-                                <a class="btn btn-primary" th:href="@{/pages/registro.html}">Nuevo empleado</a>
+                                <a class="btn btn-primary" th:href="@{/login/alta(rol=Empleado)}">Nuevo empleado</a>
                             </div>
                         </div>
                         <div class="card mb-4">
@@ -29,13 +29,12 @@
                                 Tabla de empleados
                             </div>
                             <div class="card-body">
-                            	<form method="post">
                                 <table class="table" id="datatablesSimple">
                                     <thead>
                                         <tr>
                                             <th>Email</th>
                                             <th>Nombre</th>
-                                            <th>Apellidos</th>
+                                            <th colspan="2">Apellidos</th>
                                             <th>Dni</th>
                                             <th>Teléfono</th>
                                             <th>Provincia</th>
@@ -45,20 +44,24 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="empleado : ${empleados}">
-                                        	<td th:text="${empleado.email}"></td>
-                                        	<td th:text="${empleado.nombre}"></td>
-                                        	<td th:text="${empleado.apellido1 + ' ' + empleado.apellido2}"></td>
-                                        	<td th:text="${empleado.dni}"></td>
-                                        	<td th:text="${empleado.telefono}"></td>
-                                        	<td th:text="${empleado.provincia}"></td>
-                                        	<td th:text="${empleado.localidad}"></td>
-                                        	<td th:text="${empleado.direccion}"></td>
-                                        	<td><a class="btn btn-secondary">Editar</a></td>
+                                        	<form th:action="@{/login/editarUsuario}" th:object="${usuarioEnCurso}" method="post">
+                                        	<td><input type="email" name="email" th:value="${empleado.email}"></td>
+                                        	<td><input type="text" name="nombre" th:value="${empleado.nombre}"></td>
+                                        	<td><input type="text" name="apellido1" th:value="${empleado.apellido1}"></td>
+                                        	<td><input type="text" name="apellido2" th:value="${empleado.apellido2}"></td>
+                                        	<td><input type="text" name="dni" th:value="${empleado.dni}"></td>
+                                        	<td><input type="text" name="telefono" th:value="${empleado.telefono}"></td>
+                                        	<td><input type="text" name="provincia" th:value="${empleado.provincia}"></td>
+                                        	<td><input type="text" name="localidad" th:value="${empleado.localidad}"></td>
+                                        	<td><input type="text" name="direccion" th:value="${empleado.direccion}"></td>
+                                        	<td><input type="hidden" name="clave" th:value="${empleado.clave}"></td>
+                                        	<td><input type="hidden" name="rol" th:value="${empleado.rol.id}"></td>
+                                        	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
                                         	<td><a class="btn btn-danger">Baja</a></td>
+                                        	</form>
                                         </tr>
                                     </tbody>
                                 </table>
-                                </form>
                             </div>
                         </div>
                     </div>

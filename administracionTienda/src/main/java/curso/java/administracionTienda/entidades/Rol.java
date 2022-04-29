@@ -17,7 +17,7 @@ public class Rol {
 	
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="rol")
+	@Column(name="rol", unique=true)
 	private String rol;
 	
 	

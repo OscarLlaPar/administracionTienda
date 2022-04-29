@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import curso.java.administracionTienda.entidades.Categoria;
 import curso.java.administracionTienda.entidades.Producto;
 import curso.java.administracionTienda.servicios.CategoriaServicio;
 import curso.java.administracionTienda.servicios.ProductoServicio;
+import curso.java.administracionTienda.utilidades.ProductoUtil;
 import net.bytebuddy.matcher.ModifierMatcher.Mode;
 
 @Controller
@@ -49,4 +51,43 @@ public class ProductoControlador {
 		ps.editarProducto(productoEnCurso);
 		return "redirect:/productos";
 	}
+	
+	@RequestMapping("/alta")
+	public String alta(Model model) {
+		model.addAttribute("productoEnCurso", new Producto());
+		model.addAttribute("categorias", cs.obtenerCategorias());
+		return "pages/altaProducto";
+	}
+	
+	@RequestMapping("/altaProducto")
+	public String altaProducto(@ModelAttribute Producto productoEnCurso) {
+		System.out.println(productoEnCurso);
+		ps.editarProducto(productoEnCurso);
+		return "redirect:/productos";
+	}
+	
+	@RequestMapping("/nuevaCategoria")
+	public String nuevaCategoria(Model model) {
+		model.addAttribute("categoriaEnCurso", new Producto());
+		return "pages/altaCategoria";
+	}
+	
+	@RequestMapping("/altaCategoria")
+	public String altaCategoria(@ModelAttribute Categoria categoriaEnCurso) {
+		System.out.println(categoriaEnCurso);
+		cs.guardarCategoria(categoriaEnCurso);
+		return "redirect:/productos";
+	}
+	
+	@RequestMapping("/exportar")
+	public String exportar() {
+		ProductoUtil.escribirProductos(ps.obtenerProductos(), "/prouctos.xls");
+		return "redirect:/productos";
+	}
+	
+	@RequestMapping("/importar")
+	public String importar() {
+		return "redirect:/productos";
+	}
+	
 }
