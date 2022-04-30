@@ -1,6 +1,7 @@
 package curso.java.administracionTienda.servicios;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,7 @@ public class ProductoServicio {
 	public void editarProducto(Producto p) {
 		productoRepositorio.save(p);
 	}
-	
+	public void guardarProductos(ArrayList<Producto> productos) {
+		productoRepositorio.saveAll(productos);
+	}
 }

@@ -81,7 +81,7 @@ public class ProductoControlador {
 	
 	@RequestMapping("/exportar")
 	public String exportar() {
-		ProductoUtil.escribirProductos(ps.obtenerProductos(), "/prouctos.xls");
+		ProductoUtil.escribirProductos(ps.obtenerProductos(), "prouctos.xls");
 		return "redirect:/productos";
 	}
 	

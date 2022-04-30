@@ -13,6 +13,7 @@ import curso.java.administracionTienda.entidades.Rol;
 import curso.java.administracionTienda.entidades.Usuario;
 import curso.java.administracionTienda.servicios.RolServicio;
 import curso.java.administracionTienda.servicios.UsuarioServicio;
+import curso.java.administracionTienda.utilidades.UsuarioUtil;
 
 @Controller
 @RequestMapping("/login")
@@ -54,8 +55,30 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/perfil")
-	public String verPerfil() {
+	public String verPerfil(Model model) {
+		model.addAttribute("usuarioEnCurso", new Usuario());
 		return "pages/perfilUsuario";
+	}
+	
+	
+	@RequestMapping("/editarPerfil")
+	public String editarPerfil(@ModelAttribute Usuario usuarioEnCurso, HttpSession sesion) {
+		System.out.println(usuarioEnCurso);
+		Usuario usuarioActual=(Usuario)sesion.getAttribute("usuarioAdministracion");
+		System.out.println(usuarioActual);
+		boolean esValido=true;
+		
+		if(!usuarioEnCurso.getEmail().equals(usuarioActual.getEmail()) && us.buscarUsuarioPorEmail(usuarioEnCurso.getEmail())!=null) {
+			esValido=false;
+			System.out.println("No valido");
+		}
+		
+		if(esValido) {
+			us.editarUsuario(usuarioEnCurso);
+			sesion.setAttribute("usuarioAdministracion", usuarioEnCurso);
+		}
+		
+		return "redirect:/login/perfil";
 	}
 	
 	@RequestMapping("/clientes")
@@ -86,7 +109,7 @@ public class UsuarioControlador {
 		System.out.println(usuarioEnCurso);
 		System.out.println(confirmarClave);
 		
-		if(usuarioEnCurso.getClave().equals(confirmarClave)) {
+		if(usuarioEnCurso.getClave().equals(confirmarClave)&&us.buscarUsuarioPorEmail(usuarioEnCurso.getEmail())==null) {
 			usuarioEnCurso.setClave(us.encriptarClave(usuarioEnCurso));
 			us.editarUsuario(usuarioEnCurso);
 			if(usuarioEnCurso.getRol().getRol().equals("Cliente")) {
@@ -127,4 +150,34 @@ public class UsuarioControlador {
 			return "redirect:/login/empleados";
 		}
 	}
+	
+	@RequestMapping("/password")
+	public String password() {
+		return "pages/cambiarPassword";
+	}
+	
+	@RequestMapping("/cambiarPassword")
+	public String cambiarPassword(@RequestParam String clave, @RequestParam String claveNueva, @RequestParam String confirmarClave, HttpSession sesion) {
+		boolean esValido=true;
+		Usuario usuarioActual=(Usuario)sesion.getAttribute("usuarioAdministracion");
+		String claveUsuario=UsuarioUtil.obtenerSha2(usuarioActual.getNombre()+clave);
+		if(!claveNueva.equals(confirmarClave)||!claveUsuario.equals(usuarioActual.getClave())) {
+			esValido=false;
+		}
+		
+		
+		if(!esValido) {
+			return "redirect:/login/password";
+		}
+		else {
+			String claveValida=UsuarioUtil.obtenerSha2(usuarioActual.getNombre()+claveNueva);
+			usuarioActual.setClave(claveValida);
+			us.editarUsuario(usuarioActual);
+			sesion.setAttribute("usuarioAdministracion", usuarioActual);
+			return "redirect:/login/perfil";
+		}
+		
+		
+	}
+	
 }

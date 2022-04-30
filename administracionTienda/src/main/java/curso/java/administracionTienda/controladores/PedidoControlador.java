@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import curso.java.administracionTienda.entidades.Pedido;
 import curso.java.administracionTienda.servicios.DetallePedidoServicio;
 import curso.java.administracionTienda.servicios.PedidoServicio;
 
@@ -28,12 +29,20 @@ public class PedidoControlador {
 	
 	@RequestMapping("/enviar")
 	public String enviarPedido(@RequestParam int id) {
-		return "pages/gestionPedidos";
+		Pedido pedidoEnCurso=ps.obtenerPedido(id);
+		pedidoEnCurso.setEstado("E");
+		ps.guardarPedido(pedidoEnCurso);
+		ps.asignarNumeroFactura(pedidoEnCurso);
+		return "redirect:/pedidos";
 	}
 	
 	@RequestMapping("/cancelar")
 	public String cancelarPedido(@RequestParam int id) {
-		return "pages/gestionPedidos";
+		Pedido pedidoEnCurso=ps.obtenerPedido(id);
+		pedidoEnCurso.setEstado("C");
+		ps.guardarPedido(pedidoEnCurso);
+		
+		return "redirect:/pedidos";
 	}
 	
 }

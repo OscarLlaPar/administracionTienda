@@ -18,6 +18,10 @@ public class CategoriaServicio {
 		return categoriaRepositorio.findAll();
 	}
 	
+	public Categoria obtenerCategoria(int id) {
+		return categoriaRepositorio.findById(id).get();
+	}
+	
 	public void guardarCategoria(Categoria c) {
 		categoriaRepositorio.save(c);
 	}

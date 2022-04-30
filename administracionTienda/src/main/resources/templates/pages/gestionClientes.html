@@ -28,11 +28,11 @@
                                 <i class="fas fa-table me-1"></i>
                                 Tabla de clientes
                             </div>
-                            <div class="card-body">
+                            <div class="card-body overflow-auto">
                             	
-                                <table class="table" id="datatablesSimple">
+                                <table class="w-50" id="datatablesSimple">
                                     <thead>
-                                        <tr>
+                                        <tr  class="border-bottom border-dark">
                                             <th>Email</th>
                                             <th>Nombre</th>
                                             <th colspan="2">Apellidos</th>
@@ -47,14 +47,14 @@
                                         <tr th:each="cliente : ${clientes}">
                                         	<form th:action="@{/login/editarUsuario}" th:object="${usuarioEnCurso}" method="post">
                                         	<td><input type="email" name="email" th:value="${cliente.email}"></td>
-                                        	<td><input type="text" name="nombre" th:value="${cliente.nombre}"></td>
-                                        	<td><input type="text" name="apellido1" th:value="${cliente.apellido1}"></td>
-                                        	<td><input type="text" name="apellido2" th:value="${cliente.apellido2}"></td>
-                                        	<td><input type="text" name="dni" th:value="${cliente.dni}"></td>
-                                        	<td><input type="text" name="telefono" th:value="${cliente.telefono}"></td>
-                                        	<td><input type="text" name="provincia" th:value="${cliente.provincia}"></td>
-                                        	<td><input type="text" name="localidad" th:value="${cliente.localidad}"></td>
-                                        	<td><input type="text" name="direccion" th:value="${cliente.direccion}"></td>
+                                        	<td><input size="10"  type="text" name="nombre" th:value="${cliente.nombre}"></td>
+                                        	<td><input size="10" type="text" name="apellido1" th:value="${cliente.apellido1}"></td>
+                                        	<td><input size="10" type="text" name="apellido2" th:value="${cliente.apellido2}"></td>
+                                        	<td><input size="9" type="text" name="dni" th:value="${cliente.dni}"></td>
+                                        	<td><input size="9" type="text" name="telefono" th:value="${cliente.telefono}"></td>
+                                        	<td><input size="10" type="text" name="provincia" th:value="${cliente.provincia}"></td>
+                                        	<td><input size="10" type="text" name="localidad" th:value="${cliente.localidad}"></td>
+                                        	<td><input size="15" type="text" name="direccion" th:value="${cliente.direccion}"></td>
                                         	<td><input type="hidden" name="clave" th:value="${cliente.clave}"></td>
                                         	<td><input type="hidden" name="rol" th:value="${cliente.rol.id}"></td>
                                         	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
