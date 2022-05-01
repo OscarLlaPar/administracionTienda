@@ -62,6 +62,7 @@
 							th:value="${session.usuarioAdministracion.dni}" >
 					</div>
 				</div>
+				<input type="hidden" name="id" th:value="${session.usuarioAdministracion.id}">
 				<input type="hidden" name="clave" th:value="${session.usuarioAdministracion.clave}">
 				<input type="hidden" name="rol" th:value="${session.usuarioAdministracion.rol.id}">
 				<button type="submit" class="btn btn-primary">Editar perfil</button>

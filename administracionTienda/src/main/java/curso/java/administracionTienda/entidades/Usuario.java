@@ -3,6 +3,7 @@ package curso.java.administracionTienda.entidades;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,7 +17,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="usuarios")
 public class Usuario {
-	@Id
+	@Id @GeneratedValue
+	private int id;
+	@Column(name="email", unique=true)
 	private String email;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_rol")

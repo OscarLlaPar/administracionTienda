@@ -13,4 +13,9 @@ public class DetallePedidoServicio {
 	
 	@Autowired
 	private DetallePedidoRepositorio detallePedidoRepositorio;
+	
+	public int sumUnidades() {
+		return detallePedidoRepositorio.sumUnidades();
+	}
+	
 }

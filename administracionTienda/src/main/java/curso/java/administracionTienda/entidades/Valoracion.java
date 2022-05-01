@@ -17,21 +17,18 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 @Entity
-@Table(name="pedidos")
-public class Pedido {
+@Table(name="valoraciones")
+public class Valoracion {
 	@Id @GeneratedValue
 	private int id;
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_producto")
+	private Producto producto;
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
-	@Column(name="fecha")
-	private Timestamp fecha;
-	@Column(name="metodo_pago")
-	private String metodoPago;
-	@Column(name="estado")
-	private String estado;
-	@Column(name="num_factura")
-	private String numFactura;
-	@Column(name="total")
-	private double total;
+	@Column(name="valoracion")
+	private int valoracion;
+	@Column(name="comentario")
+	private String comentario;
 }

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import curso.java.administracionTienda.entidades.Rol;
 import curso.java.administracionTienda.entidades.Usuario;
+import curso.java.administracionTienda.servicios.DetallePedidoServicio;
+import curso.java.administracionTienda.servicios.PedidoServicio;
+import curso.java.administracionTienda.servicios.ProductoServicio;
 import curso.java.administracionTienda.servicios.RolServicio;
 import curso.java.administracionTienda.servicios.UsuarioServicio;
 import curso.java.administracionTienda.utilidades.UsuarioUtil;
@@ -25,12 +28,21 @@ public class UsuarioControlador {
 	@Autowired
 	private RolServicio rs;
 	
+	@Autowired
+	private ProductoServicio ps;
+	
+	@Autowired
+	private DetallePedidoServicio dps;
+	
+	@Autowired
+	private PedidoServicio pds;
+	
 	@RequestMapping("")
-	public String login(@RequestParam String email, @RequestParam String password, HttpSession sesion) {
+	public String login(@RequestParam String email, @RequestParam String password, HttpSession sesion, Model model) {
 		Usuario u=us.verificarUsuario(email, password);
 		if(u!=null) {
 			sesion.setAttribute("usuarioAdministracion", u);
-			return "pages/inicio";
+			return "redirect:/login/inicio";
 		}
 		else {
 			return "index";
@@ -45,8 +57,14 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/inicio")
-	public String inicio(HttpSession sesion) {
+	public String inicio(HttpSession sesion, Model model) {
 		if(sesion.getAttribute("usuarioAdministracion")!=null) {
+			model.addAttribute("topProductosValoraciones", ps.findAllSortByValoracion());
+			System.out.println(ps.findAllSortByValoracion());
+			model.addAttribute("topProductosVentas", ps.findAllSortByPedidos());
+			System.out.println(ps.findAllSortByPedidos());
+			model.addAttribute("unidadesVendidas", dps.sumUnidades());
+			model.addAttribute("totalVentas", pds.sumTotal());
 			return "pages/inicio";
 		}
 		else {
@@ -160,7 +178,7 @@ public class UsuarioControlador {
 	public String cambiarPassword(@RequestParam String clave, @RequestParam String claveNueva, @RequestParam String confirmarClave, HttpSession sesion) {
 		boolean esValido=true;
 		Usuario usuarioActual=(Usuario)sesion.getAttribute("usuarioAdministracion");
-		String claveUsuario=UsuarioUtil.obtenerSha2(usuarioActual.getNombre()+clave);
+		String claveUsuario=UsuarioUtil.obtenerSha2(usuarioActual.getId()+clave);
 		if(!claveNueva.equals(confirmarClave)||!claveUsuario.equals(usuarioActual.getClave())) {
 			esValido=false;
 		}
@@ -170,7 +188,7 @@ public class UsuarioControlador {
 			return "redirect:/login/password";
 		}
 		else {
-			String claveValida=UsuarioUtil.obtenerSha2(usuarioActual.getNombre()+claveNueva);
+			String claveValida=UsuarioUtil.obtenerSha2(usuarioActual.getId()+claveNueva);
 			usuarioActual.setClave(claveValida);
 			us.editarUsuario(usuarioActual);
 			sesion.setAttribute("usuarioAdministracion", usuarioActual);

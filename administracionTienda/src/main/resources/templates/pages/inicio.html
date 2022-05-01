@@ -54,6 +54,82 @@
 						</div>
 					</div>
 				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm">
+							<div class="card">
+								<div class="card-header">
+									<p class="h5">Top productos valorados</p>
+								</div>
+								<div class="card-body">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Nombre</th>
+												<th>Descripcion</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="pValorado : ${topProductosValoraciones}">
+												<td th:text="${pValoradoStat.index+1}"></td>
+												<td th:text="${pValorado.nombre}"></td>
+												<td th:text="${pValorado.descripcion}"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm">
+							<div class="card">
+								<div class="card-header">
+									<p class="h5">Top productos vendidos</p>
+								</div>
+								<div class="card-body">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Nombre</th>
+												<th>Descripcion</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="pVentas : ${topProductosVentas}">
+												<td th:text="${pVentasStat.index+1}"></td>
+												<td th:text="${pVentas.nombre}"></td>
+												<td th:text="${pVentas.descripcion}"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm">
+							<div class="card">
+								<div class="card-header">
+									<p class="h6">Total de productos vendidos</p>
+								</div>
+								<div class="card-body">
+									<p class="h2" th:text="${unidadesVendidas+' uds.'}"></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm">
+							<div class="card">
+								<div class="card-header">
+									<p class="h6">Total de ventas (&euro;)</p>
+								</div>
+								<div class="card-body">
+									<p class="h2" th:text="${totalVentas + ' €'}"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</main>
 		<div th:replace="layout/footer :: pie"></div>

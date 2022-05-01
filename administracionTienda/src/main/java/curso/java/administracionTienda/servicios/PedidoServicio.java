@@ -42,4 +42,8 @@ public class PedidoServicio {
 		pedidoRepositorio.save(p);
 		cs.actualizarNumFacturas();
 	}
+	
+	public double sumTotal() {
+		return pedidoRepositorio.sumTotal();
+	}
 }

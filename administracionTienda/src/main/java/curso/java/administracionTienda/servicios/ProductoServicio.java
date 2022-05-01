@@ -2,9 +2,11 @@ package curso.java.administracionTienda.servicios;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.stereotype.Service;
 
 import curso.java.administracionTienda.entidades.Producto;
@@ -38,5 +40,13 @@ public class ProductoServicio {
 	}
 	public void guardarProductos(ArrayList<Producto> productos) {
 		productoRepositorio.saveAll(productos);
+	}
+	
+	public LinkedHashSet<Producto> findAllSortByValoracion(){
+		return productoRepositorio.findAllSortByValoracion();
+	}
+	
+	public LinkedHashSet<Producto> findAllSortByPedidos(){
+		return productoRepositorio.findAllSortByPedidos();
 	}
 }

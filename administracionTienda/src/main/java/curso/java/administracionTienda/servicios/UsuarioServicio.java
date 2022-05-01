@@ -21,9 +21,9 @@ public class UsuarioServicio{
 	
 	public Usuario verificarUsuario(String email, String password) {
 		
-		Usuario u=usuarioRepositorio.findById(email).get();
+		Usuario u=usuarioRepositorio.findByEmail(email);
 
-		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(u.getNombre()+password))&& !u.getRol().getRol().equals("Cliente")) {
+		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(u.getId()+password))&& !u.getRol().getRol().equals("Cliente")) {
 			return u;
 		}
 		else {
@@ -33,7 +33,7 @@ public class UsuarioServicio{
 	}
 	
 	public Usuario buscarUsuarioPorEmail(String email) {
-		return usuarioRepositorio.findById(email).get();
+		return usuarioRepositorio.findByEmail(email);
 	}
 	
 	public List <Usuario> mostrarUsuariosPorRol(String rol){
@@ -49,6 +49,6 @@ public class UsuarioServicio{
 	}
 	
 	public String encriptarClave(Usuario u) {
-		return UsuarioUtil.obtenerSha2(u.getNombre()+u.getClave());
+		return UsuarioUtil.obtenerSha2(u.getId()+u.getClave());
 	}
 }
