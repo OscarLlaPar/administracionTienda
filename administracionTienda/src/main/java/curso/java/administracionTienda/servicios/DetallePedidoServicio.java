@@ -15,7 +15,15 @@ public class DetallePedidoServicio {
 	private DetallePedidoRepositorio detallePedidoRepositorio;
 	
 	public int sumUnidades() {
-		return detallePedidoRepositorio.sumUnidades();
+		long numVentas=detallePedidoRepositorio.countEnviados();
+		if(numVentas!=0) {
+			return detallePedidoRepositorio.sumUnidades();
+		}
+		else {
+			return 0;
+		}
+		
+		
 	}
 	
 }

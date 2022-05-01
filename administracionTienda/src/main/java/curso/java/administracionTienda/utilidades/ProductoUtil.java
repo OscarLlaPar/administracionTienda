@@ -43,7 +43,9 @@ public class ProductoUtil {
 	                
 	                float impuesto=Float.parseFloat(hoja.getCell(8,i).getContents());
 	                String imagen=hoja.getCell(9,i).getContents();
-	                Producto p=new Producto(id,idCategoria,nombre,descripcion,precio,stock,null,null,impuesto,imagen);
+	                String audio=hoja.getCell(10,i).getContents();
+	                
+	                Producto p=new Producto(id,idCategoria,nombre,descripcion,precio,stock,null,null,impuesto,imagen,audio,null);
 	                listaProductos.add(p);
 	            }
 			} catch (BiffException e) {
@@ -116,6 +118,12 @@ public class ProductoUtil {
 	    	            
 	    	            jxl.write.Label imagen = new jxl.write.Label(8, p.getId(), p.getImagen());
 	    	            hoja.addCell(imagen);
+	    	            
+	    	            jxl.write.Label audio = new jxl.write.Label(9, p.getId(), p.getAudio());
+	    	            hoja.addCell(audio);
+	    	            
+	    	            jxl.write.Label proveedor = new jxl.write.Label(10, p.getId(), p.getProveedor().getNombre());
+	    	            hoja.addCell(proveedor);
 	    	            
 	    		}	
 	           

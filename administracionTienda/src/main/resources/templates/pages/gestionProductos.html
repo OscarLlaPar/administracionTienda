@@ -42,6 +42,7 @@
                                         <tr class="border-bottom border-dark">
                                             <th>Nombre</th>
                                             <th>Descripción</th>
+                                            <th>Proveedor</th>
                                             <th>Categoría</th>
                                             <th>Precio</th>
                                             <th>Stock</th>
@@ -55,6 +56,7 @@
                                         	<form action="productos/editar" th:object="${productoEnCurso}" method="post">
                                         	<td><input type="text" th:name="nombre" class="w-75"  th:value="${producto.nombre}"></td>
                                         	<td><input type="text" name="descripcion" th:value="${producto.descripcion}"></td>
+                                        	<td><input type="hidden" name="proveedor" th:value="${producto.proveedor}"></td>
                                         	<td><input class="w-25" type="text" name="categoria" th:value="${producto.categoria}"></td>
                                         	<td><input size="5" class="w-50" name="precio" type="number" step="any" th:value="${producto.precio}"></td>
                                         	<td><input size="5" class="w-50" name="stock" type="number" th:value="${producto.stock}"></td>

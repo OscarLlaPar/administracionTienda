@@ -44,6 +44,11 @@ public class PedidoServicio {
 	}
 	
 	public double sumTotal() {
-		return pedidoRepositorio.sumTotal();
+		if(pedidoRepositorio.countEnviados()!=0) {
+			return pedidoRepositorio.sumTotal();
+		}
+		else {
+			return 0;
+		}
 	}
 }

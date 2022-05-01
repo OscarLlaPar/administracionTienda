@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import curso.java.administracionTienda.entidades.Proveedor;
 import curso.java.administracionTienda.entidades.Rol;
 import curso.java.administracionTienda.entidades.Usuario;
 import curso.java.administracionTienda.servicios.DetallePedidoServicio;
 import curso.java.administracionTienda.servicios.PedidoServicio;
 import curso.java.administracionTienda.servicios.ProductoServicio;
+import curso.java.administracionTienda.servicios.ProveedorServicio;
 import curso.java.administracionTienda.servicios.RolServicio;
 import curso.java.administracionTienda.servicios.UsuarioServicio;
 import curso.java.administracionTienda.utilidades.UsuarioUtil;
@@ -36,6 +38,9 @@ public class UsuarioControlador {
 	
 	@Autowired
 	private PedidoServicio pds;
+	
+	@Autowired
+	private ProveedorServicio pvs;
 	
 	@RequestMapping("")
 	public String login(@RequestParam String email, @RequestParam String password, HttpSession sesion, Model model) {
@@ -65,6 +70,7 @@ public class UsuarioControlador {
 			System.out.println(ps.findAllSortByPedidos());
 			model.addAttribute("unidadesVendidas", dps.sumUnidades());
 			model.addAttribute("totalVentas", pds.sumTotal());
+			
 			return "pages/inicio";
 		}
 		else {

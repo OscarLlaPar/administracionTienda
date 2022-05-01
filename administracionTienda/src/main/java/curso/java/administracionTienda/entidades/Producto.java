@@ -4,8 +4,11 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -36,4 +39,9 @@ public class Producto {
 	private float impuesto;
 	@Column(name="imagen")
 	private String imagen;
+	@Column(name="audio")
+	private String audio;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_proveedor")
+	private Proveedor proveedor;
 }
