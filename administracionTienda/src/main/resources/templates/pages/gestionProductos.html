@@ -23,7 +23,7 @@
                                 <a class="btn btn-primary m-1" th:href="@{/productos/alta}">Nuevo producto</a>
                                 <a class="btn btn-primary m-1" th:href="@{/productos/nuevaCategoria}">Nueva categoría</a>
                                 <a class="btn btn-success m-1" th:href="@{/descarga}">Exportar productos</a>
-                                <form th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}" th:action="@{/subida}" enctype="multipart/form-data" method="post">
+                                <form th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}" th:action="@{/productos/importar}" enctype="multipart/form-data" method="post">
                                 	<input  type="file" name="archivo">
                                 	<button type="submit" class="btn btn-success m-1">Importar productos</button>
                                 </form>
@@ -56,8 +56,10 @@
                                         	<form action="productos/editar" th:object="${productoEnCurso}" method="post">
                                         	<td><input type="text" th:name="nombre" class="w-75"  th:value="${producto.nombre}"></td>
                                         	<td><input type="text" name="descripcion" th:value="${producto.descripcion}"></td>
-                                        	<td><input type="hidden" name="proveedor" th:value="${producto.proveedor}"></td>
-                                        	<td><input class="w-25" type="text" name="categoria" th:value="${producto.categoria}"></td>
+                                        	<td><input type="hidden" name="" th:value="${producto.proveedor}"></td>
+                                        	<td><select name="categoria">
+                                        		<option th:each="categoria: ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}" th:selected="${categoria.id==producto.categoria}"></option>
+                                        	</select> </td>
                                         	<td><input size="5" class="w-50" name="precio" type="number" step="any" th:value="${producto.precio}"></td>
                                         	<td><input size="5" class="w-50" name="stock" type="number" th:value="${producto.stock}"></td>
                                         	<td th:text="${producto.fechaAlta}"></td>

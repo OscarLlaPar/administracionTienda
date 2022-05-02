@@ -23,7 +23,7 @@ public class DescargaControlador {
 	
 	@RequestMapping("/descarga") 
 	   public ResponseEntity<Object> downloadFile() throws IOException  {  
-	      File file = ProductoUtil.escribirProductos(ps.obtenerProductos(), "prouctos.xls");
+	      File file = ProductoUtil.escribirProductos(ps.obtenerProductos(), "/prouctos.xls");
 	      InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 	      HttpHeaders headers = new HttpHeaders();
 	      

@@ -1,7 +1,9 @@
 package curso.java.administracionTienda.utilidades;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,12 +29,12 @@ public class ProductoUtil {
 	
 	public static ArrayList<Producto> leerFichero(File archivo){
 		ArrayList<Producto> listaProductos = new ArrayList<>();
-        
+        	
             Workbook libro;
 			try {
 				libro = Workbook.getWorkbook(archivo);
 				Sheet hoja = libro.getSheet(0);
-	            for(int i=1; i<hoja.getRows(); i++){
+	            for(int i=1; hoja.getCell(0,i).getContents()!=""; i++){
 	                int id=Integer.parseInt(hoja.getCell(0,i).getContents());
 	                int idCategoria=Integer.parseInt(hoja.getCell(1,i).getContents());
 	                String nombre=hoja.getCell(2,i).getContents();
@@ -62,12 +64,12 @@ public class ProductoUtil {
     public static File escribirProductos(List<Producto> lista, String ruta) {
     	
 		try  {
-			File archivo = new ClassPathResource(ruta).getFile(); 
+			File archivo = new File(ruta);
 	    	archivo.createNewFile();
 	    	System.out.println( archivo.getAbsolutePath());
 	    	/*Workbook libro;
 			libro = Workbook.getWorkbook(archivo);*/
-			WritableWorkbook ww = Workbook.createWorkbook(new ClassPathResource(ruta).getFile());
+			WritableWorkbook ww = Workbook.createWorkbook(archivo);
 	        WritableSheet hoja = ww.createSheet("Productos",0);
 	    	
 	        jxl.write.Label col1 = new jxl.write.Label(0,0,"ID");
@@ -88,6 +90,10 @@ public class ProductoUtil {
 	        hoja.addCell(col8);
 	        jxl.write.Label col9 = new jxl.write.Label(8,0,"Ruta de la imagen");
 	        hoja.addCell(col9);
+	        jxl.write.Label col10 = new jxl.write.Label(9,0,"Ruta del audio");
+	        hoja.addCell(col10);
+	        jxl.write.Label col11 = new jxl.write.Label(10,0,"Proveedor");
+	        hoja.addCell(col11);
 	       
 	        for(Producto p: lista) {
 	    			
@@ -121,10 +127,10 @@ public class ProductoUtil {
 	    	            
 	    	            jxl.write.Label audio = new jxl.write.Label(9, p.getId(), p.getAudio());
 	    	            hoja.addCell(audio);
-	    	            
+	    	            /*
 	    	            jxl.write.Label proveedor = new jxl.write.Label(10, p.getId(), p.getProveedor().getNombre());
 	    	            hoja.addCell(proveedor);
-	    	            
+	    	            */
 	    		}	
 	           
 	            ww.write();
