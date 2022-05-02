@@ -56,7 +56,9 @@
                                         	<form action="productos/editar" th:object="${productoEnCurso}" method="post">
                                         	<td><input type="text" th:name="nombre" class="w-75"  th:value="${producto.nombre}"></td>
                                         	<td><input type="text" name="descripcion" th:value="${producto.descripcion}"></td>
-                                        	<td><input type="hidden" name="" th:value="${producto.proveedor}"></td>
+                                        	<td><select name="proveedor">
+                                        		<option th:each="proveedor: ${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombre}" th:selected="${proveedor.id==producto.proveedor.id}"></option>
+                                        	</select> </td>
                                         	<td><select name="categoria">
                                         		<option th:each="categoria: ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}" th:selected="${categoria.id==producto.categoria}"></option>
                                         	</select> </td>

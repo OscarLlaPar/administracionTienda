@@ -21,15 +21,23 @@
 							class="form-control" id="inputNombre" placeholder="Nombre">
 					</div>
 					<div class="form-group col-md-6">
-						<label for="inputDescripcion">Descripción</label> <input
+						<label for="inputDescripcion">Proveedor</label>
+						<select class="form-select" name="proveedor">
+                              		<option th:each="proveedor: ${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombre}"></option>
+                              	</select> 
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputDescripcion">Descripción</label> <input
 							type="text" name="descripcion" class="form-control" id="inputDescripcion"
 							placeholder="Descripción">
-					</div>
 				</div>
 				<div class="form-row row">
 					<div class="form-group col-md-6">
-						<label for="inputCategoria">Categoría</label> <input type="number" name="categoria"
-							class="form-control" id="inputCategoria" placeholder="Categoría">
+						<label for="inputCategoria">Categoría</label> 
+						<select class="form-select" name="categoria">
+                            		<option th:each="categoria: ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+                            	</select>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputPrecio">Precio</label> <input

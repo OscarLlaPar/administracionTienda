@@ -42,8 +42,10 @@
 				</div>
 				<div class="form-row row">
 					<div class="form-group col-md-6">
-						<label for="inputProvincia">Provincia</label> <input type="text" name="provincia"
-							class="form-control" id="inputProvincia" th:value="${session.usuarioAdministracion.provincia}" >
+						<label for="inputProvincia">Provincia</label>
+						<select class="form-select" name="provincia">
+						<option th:each="provincia : ${provincias}" th:value="${provincia}" th:text="${provincia}" th:selected="${session.usuarioAdministracion.provincia.equals(provincia)}"></option>
+					</select>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputLocalidad">Localidad</label> <input

@@ -1,6 +1,6 @@
 package curso.java.administracionTienda.entidades;
 
-import java.sql.Timestamp;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -41,7 +41,7 @@ public class Producto {
 	private String imagen;
 	@Column(name="audio")
 	private String audio;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="id_proveedor")
 	private Proveedor proveedor;
 }

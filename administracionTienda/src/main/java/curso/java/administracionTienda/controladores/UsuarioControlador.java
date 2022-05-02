@@ -18,6 +18,7 @@ import curso.java.administracionTienda.servicios.ProductoServicio;
 import curso.java.administracionTienda.servicios.ProveedorServicio;
 import curso.java.administracionTienda.servicios.RolServicio;
 import curso.java.administracionTienda.servicios.UsuarioServicio;
+import curso.java.administracionTienda.utilidades.JsonUtil;
 import curso.java.administracionTienda.utilidades.UsuarioUtil;
 
 @Controller
@@ -69,7 +70,7 @@ public class UsuarioControlador {
 			model.addAttribute("topProductosVentas", ps.findAllSortByPedidos());
 			System.out.println(ps.findAllSortByPedidos());
 			model.addAttribute("unidadesVendidas", dps.sumUnidades());
-			model.addAttribute("totalVentas", pds.sumTotal());
+			model.addAttribute("totalVentas", String.format("%.2f", pds.sumTotal()));
 			
 			return "pages/inicio";
 		}
@@ -81,6 +82,7 @@ public class UsuarioControlador {
 	@RequestMapping("/perfil")
 	public String verPerfil(Model model) {
 		model.addAttribute("usuarioEnCurso", new Usuario());
+		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/perfilUsuario";
 	}
 	
@@ -124,6 +126,7 @@ public class UsuarioControlador {
 		Rol r=rs.obtenerRol(rol);
 		System.out.println(r);
 		model.addAttribute("rol", r);
+		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		return "pages/registro";
 	}

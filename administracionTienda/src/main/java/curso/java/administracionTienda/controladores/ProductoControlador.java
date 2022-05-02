@@ -20,6 +20,7 @@ import curso.java.administracionTienda.entidades.Categoria;
 import curso.java.administracionTienda.entidades.Producto;
 import curso.java.administracionTienda.servicios.CategoriaServicio;
 import curso.java.administracionTienda.servicios.ProductoServicio;
+import curso.java.administracionTienda.servicios.ProveedorServicio;
 import curso.java.administracionTienda.utilidades.ProductoUtil;
 import net.bytebuddy.matcher.ModifierMatcher.Mode;
 
@@ -33,12 +34,17 @@ public class ProductoControlador {
 	@Autowired
 	private CategoriaServicio cs;
 	
+	@Autowired
+	private ProveedorServicio prs;
+	
 	@RequestMapping("")
 	public String cargarProductos(Model model, HttpSession sesion) {
 		
 		List<Producto> productos = ps.obtenerProductos();
 		model.addAttribute("productos", productos);
 		model.addAttribute("categorias", cs.obtenerCategorias());
+		model.addAttribute("proveedores", prs.findAll());
+		System.out.println(prs.findAll());
 		model.addAttribute("productoEnCurso", new Producto());
 		return "pages/gestionProductos";
 	}
@@ -61,6 +67,7 @@ public class ProductoControlador {
 	public String alta(Model model) {
 		model.addAttribute("productoEnCurso", new Producto());
 		model.addAttribute("categorias", cs.obtenerCategorias());
+		model.addAttribute("proveedores", prs.findAll());
 		return "pages/altaProducto";
 	}
 	
