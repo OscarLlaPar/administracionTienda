@@ -14,6 +14,12 @@ public class OpcionMenuServicio {
 	@Autowired
 	private OpcionMenuRepositorio omr;
 	
+	/**
+	 * 
+	 * @param rol
+	 * @return
+	 */
+	
 	public List<OpcionMenu> findAll(String rol){
 		
 		return omr.findAllByRol(rol);

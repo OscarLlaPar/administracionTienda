@@ -29,35 +29,56 @@
                                 Tabla de proveedores
                             </div>
                             <div class="card-body overflow-auto">
-                                <table class="w-50" id="datatablesSimple">
-                                    <thead>
-                                        <tr class="border-bottom border-dark">
-                                            <th>Nombre</th>
-                                            <th>Dirección</th>
-                                            <th>Localidad</th>
-                                            <th>Provincia</th>
-                                            <th>Teléfono</th>
-                                            <th>CIF</th>
-                                            <th>Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr  th:each="proveedor : ${proveedores}">
-                                        	<form th:action="@{/proveedores/editar}" th:object="${proveedorEnCurso}" method="post">
-                                        	<td><input type="text" name="nombre" th:value="${proveedor.nombre}"></td>
-                                        	<td><input type="text" name="direccion" th:value="${proveedor.direccion}"></td>
-                                        	<td><input type="text" name="localidad" th:value="${proveedor.localidad}"></td>
-                                        	<td><input type="text" name="provincia" th:value="${proveedor.provincia}"></td>
-                                        	<td><input type="text" name="telefono" th:value="${proveedor.telefono}"></td>
-                                        	<td><input type="text" name="cif" th:value="${proveedor.cif}"></td>
-                                        	<td><input type="email" name="email" th:value="${proveedor.email}"></td>
-                                        	<td><input type="hidden" name="id" th:value="${proveedor.id}"></td>
-                                        	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
-                                        	<td><a class="btn btn-danger" th:href="@{/proveedores/baja(id=${proveedor.id})}" >Baja</a></td>
-                                        	</form>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            	<div class="list-group">
+                            		<div class="list-group-item" th:each="proveedor : ${proveedores}">
+                            			<form th:action="@{/proveedores/editar}" th:object="${proveedorEnCurso}" method="post">
+                            			<div class="container">
+                            				<div class="row">
+                            					<div class="col-sm">
+                            						<label>Nombre</label>
+                            						<input type="text" class="form-control" name="nombre" th:value="${proveedor.nombre}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Dirección</label>
+                            						<input type="text" class="form-control" name="direccion" th:value="${proveedor.direccion}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Provincia</label>
+                            						<select name="provincia" class="form-select">
+                            							<option th:each="provincia : ${provincias}" th:value="${provincia}" th:text="${provincia}" th:selected="${proveedor.provincia.equals(provincia)}"></option>
+                            						</select>
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Localidad</label>
+                            						<input type="text" class="form-control" name="localidad" th:value="${proveedor.localidad}">
+                            					</div>
+                            				</div>
+                            				<div class="row">
+                            					<div class="col-sm">
+                            						<label>Teléfono</label>
+                            						<input type="text" class="form-control" name="telefono" th:value="${proveedor.telefono}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>CIF</label>
+                            						<input type="text" class="form-control" name="cif" th:value="${proveedor.cif}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Email</label>
+                            						<input type="email" class="form-control" name="email" th:value="${proveedor.email}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Fecha de baja</label>
+                            						<input type="text" class="form-control" name="fechaBaja" readonly>
+                            					</div>
+                            					
+                            				</div>
+                            				<input type="hidden" name="id" th:value="${proveedor.id}">
+                            					<button type="submit" class="btn btn-secondary my-2">Editar</button>
+                            					<a class="btn btn-danger my-2" th:href="@{/proveedores/baja(id=${proveedor.id})}"  onclick="return confirm('¿Estás seguro de que deseas dar de baja al proveedor?')">Baja</a>
+                            			</div>
+                            			</form>
+                            		</div>
+                            	</div>
                             </div>
                         </div>
                     </div>

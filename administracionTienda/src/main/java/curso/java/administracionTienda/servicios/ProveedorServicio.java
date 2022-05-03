@@ -13,12 +13,28 @@ public class ProveedorServicio {
 	@Autowired
 	private ProveedorRepositorio proveedorRepositorio;
 	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public List<Proveedor> findAll(){
 		return proveedorRepositorio.findAll();
 	}
+	
+	/**
+	 * 
+	 * @param p
+	 */
+	
 	public void guardarProveedor(Proveedor p) {
 		proveedorRepositorio.save(p);
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
 	
 	public void bajaProveedor(int id) {
 		proveedorRepositorio.deleteById(id);

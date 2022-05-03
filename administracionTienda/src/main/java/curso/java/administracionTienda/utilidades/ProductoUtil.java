@@ -27,6 +27,12 @@ public class ProductoUtil {
 	@Autowired
 	private CategoriaServicio cs;
 	
+	/**
+	 * 
+	 * @param archivo
+	 * @return
+	 */
+	
 	public static ArrayList<Producto> leerFichero(File archivo){
 		ArrayList<Producto> listaProductos = new ArrayList<>();
         	

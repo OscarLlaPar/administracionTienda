@@ -14,13 +14,30 @@ public class CategoriaServicio {
 	@Autowired
 	private CategoriaRepositorio categoriaRepositorio;
 	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public List<Categoria> obtenerCategorias(){
 		return categoriaRepositorio.findAll();
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	
 	public Categoria obtenerCategoria(int id) {
 		return categoriaRepositorio.findById(id).get();
 	}
+	
+	/**
+	 * 
+	 * @param c
+	 */
 	
 	public void guardarCategoria(Categoria c) {
 		categoriaRepositorio.save(c);

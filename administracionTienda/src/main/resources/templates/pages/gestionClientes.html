@@ -41,6 +41,8 @@
                                             <th>Provincia</th>
                                             <th>Localidad</th>
                                             <th>Dirección</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -59,7 +61,7 @@
                                         	<td><input type="hidden" name="rol" th:value="${cliente.rol.id}"></td>
                                         	<td><input type="hidden" name="id" th:value="${cliente.id}"></td>
                                         	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
-                                        	<td th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a th:href="@{/login/baja(id=${cliente.id})}" class="btn btn-danger">Baja</a></td>
+                                        	<td th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a th:href="@{/login/baja(id=${cliente.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas dar de baja al cliente?')">Baja</a></td>
                                         	</form>
                                         </tr>
                                     </tbody>

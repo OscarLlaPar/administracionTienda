@@ -14,17 +14,37 @@ public class ConfiguracionServicio {
 	@Autowired
 	private ConfiguracionRepositorio cr;
 	
+	/**
+	 * 
+	 * @param clave
+	 * @return
+	 */
+	
 	public Configuracion obtenerConfiguracion(String clave) {
 		return cr.findByClave(clave);
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public List<Configuracion> obtenerTodaLaConfiguracion(){
 		return cr.findAll();
 	}
 	
+	/**
+	 * 
+	 * @param c
+	 */
+	
 	public void guardarConfiguracion(Configuracion c) {
 		cr.save(c);
 	}
+	
+	/**
+	 * 
+	 */
 	
 	public void actualizarNumFacturas() {
 		Configuracion c=obtenerConfiguracion("numFacturas");

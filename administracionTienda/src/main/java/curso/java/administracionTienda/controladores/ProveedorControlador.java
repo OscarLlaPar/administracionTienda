@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import curso.java.administracionTienda.entidades.Proveedor;
 import curso.java.administracionTienda.servicios.ProveedorServicio;
+import curso.java.administracionTienda.utilidades.JsonUtil;
 
 @Controller
 @RequestMapping("/proveedores")
@@ -21,6 +22,7 @@ public class ProveedorControlador {
 	public String mostrarProveedores(Model model) {
 		model.addAttribute("proveedores", ps.findAll());
 		model.addAttribute("proveedorEnCurso", new Proveedor());
+		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		
 		return "pages/gestionProveedores";
 	}

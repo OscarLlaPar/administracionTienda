@@ -23,17 +23,38 @@ public class PedidoServicio {
 	@Autowired
 	private DetallePedidoRepositorio detallePedidoRepositorio;
 	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public List<Pedido> obtenerPedidos(){
 		return pedidoRepositorio.findAll();
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	
 	public Pedido obtenerPedido(int id) {
 		return pedidoRepositorio.findById(id).get();
 	}
 	
+	/**
+	 * 
+	 * @param p
+	 */
+	
 	public void guardarPedido(Pedido p) {
 		pedidoRepositorio.save(p);
 	}
+	
+	/**
+	 * 
+	 * @param p
+	 */
 	
 	public void asignarNumeroFactura(Pedido p) {
 		Configuracion c=cs.obtenerConfiguracion("numFacturas");
@@ -42,6 +63,11 @@ public class PedidoServicio {
 		pedidoRepositorio.save(p);
 		cs.actualizarNumFacturas();
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public double sumTotal() {
 		if(pedidoRepositorio.countEnviados()!=0) {

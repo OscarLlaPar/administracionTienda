@@ -16,6 +16,11 @@ import org.springframework.web.client.RestTemplate;
 
 public class JsonUtil {
 	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public static ArrayList<String> obtenerProvincias(){
 		ArrayList<String> provincias = new ArrayList<>();
 		

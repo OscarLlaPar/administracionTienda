@@ -14,6 +14,11 @@ public class DetallePedidoServicio {
 	@Autowired
 	private DetallePedidoRepositorio detallePedidoRepositorio;
 	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public int sumUnidades() {
 		long numVentas=detallePedidoRepositorio.countEnviados();
 		if(numVentas!=0) {

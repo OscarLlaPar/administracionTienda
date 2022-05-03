@@ -36,44 +36,73 @@
                                 Productos
                             </div>
                             <div class="card-body overflow-auto">
-                            	
-                                <table class="" id="datatablesSimple">
-                                    <thead>
-                                        <tr class="border-bottom border-dark">
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Proveedor</th>
-                                            <th>Categoría</th>
-                                            <th>Precio</th>
-                                            <th>Stock</th>
-                                            <th>Fecha de alta</th>
-                                            <th>Fecha de baja</th>
-                                            <th>Impuesto</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="producto : ${productos}">
-                                        	<form action="productos/editar" th:object="${productoEnCurso}" method="post">
-                                        	<td><input type="text" th:name="nombre" class="w-75"  th:value="${producto.nombre}"></td>
-                                        	<td><input type="text" name="descripcion" th:value="${producto.descripcion}"></td>
-                                        	<td><select name="proveedor">
-                                        		<option th:each="proveedor: ${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombre}" th:selected="${proveedor.id==producto.proveedor.id}"></option>
-                                        	</select> </td>
-                                        	<td><select name="categoria">
-                                        		<option th:each="categoria: ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}" th:selected="${categoria.id==producto.categoria}"></option>
-                                        	</select> </td>
-                                        	<td><input size="5" class="w-50" name="precio" type="number" step="any" th:value="${producto.precio}"></td>
-                                        	<td><input size="5" class="w-50" name="stock" type="number" th:value="${producto.stock}"></td>
-                                        	<td th:text="${producto.fechaAlta}"></td>
-                                        	<td th:text="${producto.fechaBaja}"></td>
-                                        	<td><input size="5"  class="w-50" name="impuesto" type="number" step="any" th:value="${producto.impuesto}"></td>
-                                        	<td><input type="hidden" name="id" th:value="${producto.id}"></td>
-                                        	<td><button type="submit" name="idEditar" class="btn btn-secondary" th:value="${producto.id}">Editar</button></td>
-                                        	<td th:if="${producto.fechaBaja == null}"><a class="btn btn-danger" th:href="@{productos/baja(id=${producto.id})}">Baja</a></td>
-                                        	</form>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            	<div class="list-group">
+                            		<div class="list-group-item" th:each="producto : ${productos}">
+                            			<form action="productos/editar" th:object="${productoEnCurso}" method="post">
+                            			<div class="container">
+                            				<div class="row">
+                            					<div class="col-sm">
+                            							<label>Nombre</label>
+                            							<input type="text" th:name="nombre" class="form-control"  th:value="${producto.nombre}">
+                            					</div>
+                            					<div class="col-sm">
+                            							<label>Proveedor</label>
+                            							<select name="proveedor" class="form-select">
+			                                        		<option th:each="proveedor: ${proveedores}" th:value="${proveedor.id}" th:text="${proveedor.nombre}" th:selected="${proveedor.id==producto.proveedor.id}"></option>
+			                                        	</select>
+                            					</div>
+                            					<div class="col-sm">
+                            							<label>Categoría</label>
+                            							<select name="categoria" class="form-select">
+			                                        		<option th:each="categoria: ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}" th:selected="${categoria.id==producto.categoria}"></option>
+			                                        	</select>
+                            					</div>
+                            					<div class="col-sm">
+                            							<label>Precio</label>
+                            							<input size="5" class="form-control" name="precio" type="number" step="any" th:value="${producto.precio}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Stock</label>
+                            						<input size="5" class="form-control" name="stock" type="number" th:value="${producto.stock}">
+                            					</div>
+                            				</div>
+                            				<div class="row">
+                            					<div class="col-sm">
+                            							<label>Descripción</label>
+                            							<input type="text" name="descripcion" class="form-control" th:value="${producto.descripcion}">
+                            					</div>
+                            				</div>
+                            				<div class="row">
+                            					
+                            					<div class="col-sm">
+                            						<label>Fecha de alta</label>
+                            						<input size="5" class="form-control" type="text" th:value="${producto.fechaAlta}" readonly>
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Fecha de baja</label>
+                            						<input size="5" class="form-control"  type="text" th:value="${producto.fechaBaja}" readonly>
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Impuesto</label>
+                            						<input size="5" class="form-control" name="impuesto" type="number" step="any" th:value="${producto.impuesto}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Ruta de la imagen</label>
+                            						<input size="5" class="form-control" name="imagen" type="text" th:value="${producto.imagen}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Ruta del audio</label>
+                            						<input size="5" class="form-control" name="audio" type="text" th:value="${producto.audio}">
+                            					</div>
+                            				</div>
+                            					<input type="hidden" name="id" th:value="${producto.id}">
+                            					<button type="submit" name="idEditar" class="btn btn-secondary my-2" th:value="${producto.id}">Editar</button>
+                            					<a th:if="${producto.fechaBaja == null}" class="btn btn-danger my-2" th:href="@{productos/baja(id=${producto.id})}"  onclick="return confirm('¿Estás seguro de que deseas dar de baja al producto?')">Baja</a>
+                            				
+                            			</div>
+                            			</form>
+                            		</div>
+                            	</div>
                                 
                             </div>
                         </div>

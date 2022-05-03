@@ -40,6 +40,8 @@
                                             <th>Provincia</th>
                                             <th>Localidad</th>
                                             <th>Dirección</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,7 +60,7 @@
                                         	<td><input type="hidden" name="rol" th:value="${empleado.rol.id}"></td>
                                         	<td><input type="hidden" name="id" th:value="${empleado.id}"></td>
                                         	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
-                                        	<td><a th:href="@{/login/baja(id=${empleado.id})}" class="btn btn-danger">Baja</a></td>
+                                        	<td><a th:href="@{/login/baja(id=${empleado.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas dar de baja al empleado?')">Baja</a></td>
                                         	</form>
                                         </tr>
                                     </tbody>

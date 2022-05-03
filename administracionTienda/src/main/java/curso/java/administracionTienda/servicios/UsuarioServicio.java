@@ -19,6 +19,14 @@ public class UsuarioServicio{
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 	
+	
+	/**
+	 * 
+	 * @param email
+	 * @param password
+	 * @return
+	 */
+	
 	public Usuario verificarUsuario(String email, String password) {
 		
 		Usuario u=usuarioRepositorio.findByEmail(email);
@@ -32,25 +40,59 @@ public class UsuarioServicio{
 		
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	
 	public Usuario buscarUsuarioPorId(int id) {
 		return usuarioRepositorio.findById(id).get();
 	}
+	
+	/**
+	 * 
+	 * @param email
+	 * @return
+	 */
 	
 	public Usuario buscarUsuarioPorEmail(String email) {
 		return usuarioRepositorio.findByEmail(email);
 	}
 	
+	/**
+	 * 
+	 * @param rol
+	 * @return
+	 */
+	
 	public List <Usuario> mostrarUsuariosPorRol(String rol){
 		return usuarioRepositorio.findAllByRol(rol);
 	}
+	
+	/**
+	 * 
+	 * @param u
+	 */
 	
 	public void editarUsuario(Usuario u) {
 		usuarioRepositorio.save(u);
 	}
 	
+	/**
+	 * 
+	 * @param u
+	 */
+	
 	public void bajaUsuario(Usuario u) {
 		usuarioRepositorio.delete(u);
 	}
+	
+	/**
+	 * 
+	 * @param u
+	 * @return
+	 */
 	
 	public String encriptarClave(Usuario u) {
 		return UsuarioUtil.obtenerSha2(u.getClave());

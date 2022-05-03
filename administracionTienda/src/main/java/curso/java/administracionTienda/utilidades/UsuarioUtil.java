@@ -5,6 +5,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class UsuarioUtil {
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	
 	public static String obtenerSha2(String s) {
 		MessageDigest digest;
 		try {

@@ -21,13 +21,29 @@ public class ProductoServicio {
 	@Autowired
 	private ProductoRepositorio productoRepositorio;
 	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public List<Producto> obtenerProductos() {
 		return productoRepositorio.findAll();
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	
 	public Producto obtenerProducto(int id) {
 		return productoRepositorio.findById(id).get();
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
 	
 	public void darDeBaja(int id) {
 		Producto p= obtenerProducto(id);
@@ -35,16 +51,37 @@ public class ProductoServicio {
 		productoRepositorio.save(p);
 	}
 	
+	/**
+	 * 
+	 * @param p
+	 */
+	
 	public void editarProducto(Producto p) {
 		productoRepositorio.save(p);
 	}
+	
+	/**
+	 * 
+	 * @param productos
+	 */
+	
 	public void guardarProductos(ArrayList<Producto> productos) {
 		productoRepositorio.saveAll(productos);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public LinkedHashSet<Producto> findAllSortByValoracion(){
 		return productoRepositorio.findAllSortByValoracion();
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	public LinkedHashSet<Producto> findAllSortByPedidos(){
 		return productoRepositorio.findAllSortByPedidos();
