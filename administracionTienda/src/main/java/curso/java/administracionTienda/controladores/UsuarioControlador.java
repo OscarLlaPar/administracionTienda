@@ -13,6 +13,7 @@ import curso.java.administracionTienda.entidades.Proveedor;
 import curso.java.administracionTienda.entidades.Rol;
 import curso.java.administracionTienda.entidades.Usuario;
 import curso.java.administracionTienda.servicios.DetallePedidoServicio;
+import curso.java.administracionTienda.servicios.OpcionMenuServicio;
 import curso.java.administracionTienda.servicios.PedidoServicio;
 import curso.java.administracionTienda.servicios.ProductoServicio;
 import curso.java.administracionTienda.servicios.ProveedorServicio;
@@ -43,6 +44,9 @@ public class UsuarioControlador {
 	@Autowired
 	private ProveedorServicio pvs;
 	
+	@Autowired
+	private OpcionMenuServicio oms;
+	
 	@RequestMapping("")
 	public String login(@RequestParam String email, @RequestParam String password, HttpSession sesion, Model model) {
 		Usuario u=us.verificarUsuario(email, password);
@@ -71,6 +75,8 @@ public class UsuarioControlador {
 			System.out.println(ps.findAllSortByPedidos());
 			model.addAttribute("unidadesVendidas", dps.sumUnidades());
 			model.addAttribute("totalVentas", String.format("%.2f", pds.sumTotal()));
+			Usuario u=(Usuario) sesion.getAttribute("usuarioAdministracion");
+			model.addAttribute("opciones",oms.findAll(u.getRol().getRol()));
 			
 			return "pages/inicio";
 		}
@@ -166,8 +172,8 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/baja")
-	public String baja(@RequestParam String email) {
-		Usuario u=us.buscarUsuarioPorEmail(email);
+	public String baja(@RequestParam int id) {
+		Usuario u=us.buscarUsuarioPorId(id);
 		System.out.println(u);
 		us.bajaUsuario(u);
 		if(u.getRol().getRol().equals("Cliente")) {
@@ -187,7 +193,7 @@ public class UsuarioControlador {
 	public String cambiarPassword(@RequestParam String clave, @RequestParam String claveNueva, @RequestParam String confirmarClave, HttpSession sesion) {
 		boolean esValido=true;
 		Usuario usuarioActual=(Usuario)sesion.getAttribute("usuarioAdministracion");
-		String claveUsuario=UsuarioUtil.obtenerSha2(usuarioActual.getId()+clave);
+		String claveUsuario=UsuarioUtil.obtenerSha2(clave);
 		if(!claveNueva.equals(confirmarClave)||!claveUsuario.equals(usuarioActual.getClave())) {
 			esValido=false;
 		}
@@ -197,7 +203,7 @@ public class UsuarioControlador {
 			return "redirect:/login/password";
 		}
 		else {
-			String claveValida=UsuarioUtil.obtenerSha2(usuarioActual.getId()+claveNueva);
+			String claveValida=UsuarioUtil.obtenerSha2(claveNueva);
 			usuarioActual.setClave(claveValida);
 			us.editarUsuario(usuarioActual);
 			sesion.setAttribute("usuarioAdministracion", usuarioActual);

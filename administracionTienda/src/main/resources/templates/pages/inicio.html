@@ -2,64 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Inicio - Administración</title>
 <link th:replace="layout/header :: estilos">
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="min-vh-100">
 	<div th:replace="layout/header :: cabecera"></div>
-	<div id="layoutSidenav_content">
-		<main>
+	<div id="layoutSidenav_content" class="min-vh-100">
+		
 			<div class="container-fluid px-5">
 				<h1 class="mt-4">Inicio</h1>
 				<div class="row">
-					<div class="col-xl-3 col-md-6">
+					<div class="col-xl-3 col-md-6" th:each="opcion : ${opciones}">
 						<div class="card bg-primary text-white mb-4">
 							<div class="card-body">
-								<a class="link-light" th:href="@{/productos}">Gestionar
-									productos</a>
+								<a class="link-light" th:href="@{${opcion.urlOpcion}}" th:text="${opcion.nombreOpcion}"></a>
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-3 col-md-6">
-						<div class="card bg-primary text-white mb-4">
-							<div class="card-body">
-								<a class="link-light" th:href="@{/pedidos}">Gestionar
-									pedidos</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6">
-						<div class="card bg-primary text-white mb-4">
-							<div class="card-body">
-								<a class="link-light" th:href="@{/login/clientes}">Gestionar
-									clientes</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6">
-						<div class="card bg-primary text-white mb-4">
-							<div class="card-body">
-								<a class="link-light" th:href="@{/login/empleados}">Gestionar
-									empleados</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6">
-						<div class="card bg-primary text-white mb-4">
-							<div class="card-body">
-								<a class="link-light" th:href="@{/proveedores}">Gestionar proveedores</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6">
-						<div class="card bg-primary text-white mb-4">
-							<div class="card-body">
-								<a class="link-light" th:href="@{/config}">Configuración de la aplicación</a>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 				<div class="container">
 					<div class="row">
@@ -138,7 +100,8 @@
 					</div>
 				</div>
 			</div>
-		</main>
+		
+		
 		<div th:replace="layout/footer :: pie"></div>
 	</div>
 	<script th:src="@{js/scripts.js}" type="text/javascript"></script>

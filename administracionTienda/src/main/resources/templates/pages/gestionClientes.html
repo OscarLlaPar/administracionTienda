@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Clientes - Administración</title>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link th:replace="layout/header :: estilos">
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -57,8 +57,9 @@
                                         	<td><input size="15" type="text" name="direccion" th:value="${cliente.direccion}"></td>
                                         	<td><input type="hidden" name="clave" th:value="${cliente.clave}"></td>
                                         	<td><input type="hidden" name="rol" th:value="${cliente.rol.id}"></td>
+                                        	<td><input type="hidden" name="id" th:value="${cliente.id}"></td>
                                         	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
-                                        	<td th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a th:href="@{/login/baja(email=${cliente.email})}" class="btn btn-danger">Baja</a></td>
+                                        	<td th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a th:href="@{/login/baja(id=${cliente.id})}" class="btn btn-danger">Baja</a></td>
                                         	</form>
                                         </tr>
                                     </tbody>
