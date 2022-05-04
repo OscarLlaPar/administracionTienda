@@ -2,6 +2,8 @@ package curso.java.administracionTienda.entidades;
 
 
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,4 +34,6 @@ public class Proveedor {
 	private String cif;
 	@Column(name="email")
 	private String email;
+	@Column(name="fecha_baja")
+	private Timestamp fechaBaja;
 }

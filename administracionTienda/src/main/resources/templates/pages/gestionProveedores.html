@@ -68,13 +68,14 @@
                             					</div>
                             					<div class="col-sm">
                             						<label>Fecha de baja</label>
-                            						<input type="text" class="form-control" name="fechaBaja" readonly>
+                            						<input type="text" class="form-control" name="fechaBaja" th:value="${proveedor.fechaBaja}" readonly>
                             					</div>
                             					
                             				</div>
                             				<input type="hidden" name="id" th:value="${proveedor.id}">
                             					<button type="submit" class="btn btn-secondary my-2">Editar</button>
-                            					<a class="btn btn-danger my-2" th:href="@{/proveedores/baja(id=${proveedor.id})}"  onclick="return confirm('¿Estás seguro de que deseas dar de baja al proveedor?')">Baja</a>
+                            					<a th:if="${proveedor.fechaBaja==null}" class="btn btn-danger my-2" th:href="@{/proveedores/baja(id=${proveedor.id})}"  onclick="return confirm('¿Estás seguro de que deseas dar de baja al proveedor?')">Baja</a>
+                            					<a th:if="${proveedor.fechaBaja!=null}" class="btn btn-success" th:href="@{/proveedores/quitarBaja(id=${proveedor.id})}">Alta</a>
                             			</div>
                             			</form>
                             		</div>

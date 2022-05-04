@@ -8,10 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import curso.java.administracionTienda.entidades.Configuracion;
 import curso.java.administracionTienda.entidades.Proveedor;
 import curso.java.administracionTienda.entidades.Rol;
 import curso.java.administracionTienda.entidades.Usuario;
+import curso.java.administracionTienda.servicios.ConfiguracionServicio;
 import curso.java.administracionTienda.servicios.DetallePedidoServicio;
 import curso.java.administracionTienda.servicios.OpcionMenuServicio;
 import curso.java.administracionTienda.servicios.PedidoServicio;
@@ -42,7 +45,7 @@ public class UsuarioControlador {
 	private PedidoServicio pds;
 	
 	@Autowired
-	private ProveedorServicio pvs;
+	private ConfiguracionServicio cs;
 	
 	@Autowired
 	private OpcionMenuServicio oms;
@@ -52,9 +55,15 @@ public class UsuarioControlador {
 		Usuario u=us.verificarUsuario(email, password);
 		if(u!=null) {
 			sesion.setAttribute("usuarioAdministracion", u);
+			Configuracion adminLogado=cs.obtenerConfiguracion("adminLogado");
+			if(u.getNombre().equals("Admin")&&adminLogado.getValor().equals("0")) {
+				return "redirect:/login/password";
+			}
+			
 			return "redirect:/login/inicio";
 		}
 		else {
+			model.addAttribute("errorLogin", "Email y/o contraseña incorrectos");
 			return "index";
 		}
 		
@@ -68,14 +77,25 @@ public class UsuarioControlador {
 	
 	@RequestMapping("/inicio")
 	public String inicio(HttpSession sesion, Model model) {
+	
+		if(model.getAttribute("passCambiada")!=null) {
+			model.addAttribute("passCambiada", model.getAttribute("passCambiada"));
+		}
+		
 		if(sesion.getAttribute("usuarioAdministracion")!=null) {
+			Usuario u= (Usuario) sesion.getAttribute("usuarioAdministracion");
+			Configuracion adminLogado=cs.obtenerConfiguracion("adminLogado");
+			if(u.getNombre().equals("Admin")&&adminLogado.getValor().equals("0")) {
+				return "redirect:/login/password";
+			}
+			
 			model.addAttribute("topProductosValoraciones", ps.findAllSortByValoracion());
 			System.out.println(ps.findAllSortByValoracion());
 			model.addAttribute("topProductosVentas", ps.findAllSortByPedidos());
 			System.out.println(ps.findAllSortByPedidos());
 			model.addAttribute("unidadesVendidas", dps.sumUnidades());
 			model.addAttribute("totalVentas", String.format("%.2f", pds.sumTotal()));
-			Usuario u=(Usuario) sesion.getAttribute("usuarioAdministracion");
+			
 			model.addAttribute("opciones",oms.findAll(u.getRol().getRol()));
 			
 			return "pages/inicio";
@@ -86,7 +106,21 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/perfil")
-	public String verPerfil(Model model) {
+	public String verPerfil(Model model, HttpSession sesion) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
+		
+		if(model.getAttribute("passCambiada")!=null) {
+			model.addAttribute("passCambiada", model.getAttribute("passCambiada"));
+		}
+		
+		Usuario u= (Usuario) sesion.getAttribute("usuarioAdministracion");
+		Configuracion adminLogado=cs.obtenerConfiguracion("adminLogado");
+		if(u.getNombre().equals("Admin")&&adminLogado.getValor().equals("0")) {
+			return "redirect:/login/password";
+		}
+		
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/perfilUsuario";
@@ -114,21 +148,30 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/clientes")
-	public String mostrarClientes(Model model) {
+	public String mostrarClientes(Model model, HttpSession sesion) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
 		model.addAttribute("clientes", us.mostrarUsuariosPorRol("Cliente"));
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		return "pages/gestionClientes";
 	}
 	
 	@RequestMapping("/empleados")
-	public String mostrarEmpleados(Model model) {
+	public String mostrarEmpleados(Model model, HttpSession sesion) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
 		model.addAttribute("empleados", us.mostrarUsuariosPorRol("Empleado"));
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		return "pages/gestionEmpleados";
 	}
 	
 	@RequestMapping("/alta")
-	public String nuevoCliente(@RequestParam String rol, Model model) {
+	public String nuevoCliente(@RequestParam String rol, Model model,  HttpSession sesion) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
 		Rol r=rs.obtenerRol(rol);
 		System.out.println(r);
 		model.addAttribute("rol", r);
@@ -138,7 +181,11 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/altaUsuario")
-	public String altaUsuario(@ModelAttribute Usuario usuarioEnCurso, @RequestParam String confirmarClave ) {
+	public String altaUsuario(@ModelAttribute Usuario usuarioEnCurso, @RequestParam String confirmarClave, HttpSession sesion ) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
+		
 		System.out.println(usuarioEnCurso);
 		System.out.println(confirmarClave);
 		
@@ -159,7 +206,11 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/editarUsuario")
-	public String editarUsuaio(@ModelAttribute Usuario usuarioEnCurso) {
+	public String editarUsuaio(@ModelAttribute Usuario usuarioEnCurso, HttpSession sesion) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
+		
 		System.out.println(usuarioEnCurso);
 		us.editarUsuario(usuarioEnCurso);
 		if(usuarioEnCurso.getRol().getRol().equals("Cliente")) {
@@ -184,13 +235,29 @@ public class UsuarioControlador {
 		}
 	}
 	
+	@RequestMapping("/quitarBaja")
+	public String quitarBaja(@RequestParam int id) {
+		Usuario u=us.buscarUsuarioPorId(id);
+		us.quitarBajaUsuario(u);
+		if(u.getRol().getRol().equals("Cliente")) {
+			return "redirect:/login/clientes";
+		}
+		else {
+			return "redirect:/login/empleados";
+		}
+	}
+	
 	@RequestMapping("/password")
-	public String password() {
+	public String password(HttpSession sesion) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
+		
 		return "pages/cambiarPassword";
 	}
 	
 	@RequestMapping("/cambiarPassword")
-	public String cambiarPassword(@RequestParam String clave, @RequestParam String claveNueva, @RequestParam String confirmarClave, HttpSession sesion) {
+	public String cambiarPassword(@RequestParam String clave, @RequestParam String claveNueva, @RequestParam String confirmarClave, HttpSession sesion, RedirectAttributes ra) {
 		boolean esValido=true;
 		Usuario usuarioActual=(Usuario)sesion.getAttribute("usuarioAdministracion");
 		String claveUsuario=UsuarioUtil.obtenerSha2(clave);
@@ -200,13 +267,23 @@ public class UsuarioControlador {
 		
 		
 		if(!esValido) {
+			
 			return "redirect:/login/password";
 		}
 		else {
 			String claveValida=UsuarioUtil.obtenerSha2(claveNueva);
 			usuarioActual.setClave(claveValida);
 			us.editarUsuario(usuarioActual);
+			Configuracion adminLogado=cs.obtenerConfiguracion("adminLogado");
 			sesion.setAttribute("usuarioAdministracion", usuarioActual);
+			ra.addAttribute("passCambiada", "La contraseña ha sido cambiada");
+			if(usuarioActual.getNombre().equals("Admin") && adminLogado.getValor().equals("0")) {
+				adminLogado.setValor("1");
+				cs.guardarConfiguracion(adminLogado);
+				return "redirect:/login/inicio";
+			}
+			
+			
 			return "redirect:/login/perfil";
 		}
 		

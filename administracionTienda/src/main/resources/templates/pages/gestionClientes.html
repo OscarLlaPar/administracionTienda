@@ -41,6 +41,7 @@
                                             <th>Provincia</th>
                                             <th>Localidad</th>
                                             <th>Dirección</th>
+                                            <th>Fecha de baja</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
@@ -57,11 +58,13 @@
                                         	<td><input size="10" type="text" name="provincia" th:value="${cliente.provincia}"></td>
                                         	<td><input size="10" type="text" name="localidad" th:value="${cliente.localidad}"></td>
                                         	<td><input size="15" type="text" name="direccion" th:value="${cliente.direccion}"></td>
+                                        	<td><input size="15" type="text" name="fechaBaja" th:value="${cliente.fechaBaja}" readonly></td>
                                         	<td><input type="hidden" name="clave" th:value="${cliente.clave}"></td>
                                         	<td><input type="hidden" name="rol" th:value="${cliente.rol.id}"></td>
                                         	<td><input type="hidden" name="id" th:value="${cliente.id}"></td>
                                         	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
-                                        	<td th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a th:href="@{/login/baja(id=${cliente.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas dar de baja al cliente?')">Baja</a></td>
+                                        	<td th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador') and cliente.fechaBaja==null}"><a th:href="@{/login/baja(id=${cliente.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas dar de baja al cliente?')">Baja</a></td>
+                                        	<td th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador') and cliente.fechaBaja!=null}"><a th:href="@{/login/quitarBaja(id=${cliente.id})}" class="btn btn-success">Alta</a></td>
                                         	</form>
                                         </tr>
                                     </tbody>

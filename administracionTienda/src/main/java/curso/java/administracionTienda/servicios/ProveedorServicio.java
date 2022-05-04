@@ -1,5 +1,6 @@
 package curso.java.administracionTienda.servicios;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,23 @@ public class ProveedorServicio {
 	 */
 	
 	public void bajaProveedor(int id) {
-		proveedorRepositorio.deleteById(id);
+		Proveedor p=findById(id);
+		p.setFechaBaja(new Timestamp(System.currentTimeMillis()));
+		proveedorRepositorio.save(p);
+	}
+	
+	public Proveedor findById(int id) {
+		return proveedorRepositorio.findById(id).get();
+	}
+	
+	public void quitarBajaProveedor(int id) {
+		Proveedor p=findById(id);
+		p.setFechaBaja(null);
+		proveedorRepositorio.save(p);
+	}
+	
+	public List<Proveedor> findAllSinBaja(){
+		return proveedorRepositorio.findAllSinBaja();
 	}
 	
 }

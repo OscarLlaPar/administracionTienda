@@ -1,5 +1,7 @@
 package curso.java.administracionTienda.entidades;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,5 +44,7 @@ public class Usuario {
 	private String telefono;
 	@Column(name="dni")
 	private String dni;
+	@Column(name="fecha_baja")
+	private Timestamp fechaBaja;
 	
 }

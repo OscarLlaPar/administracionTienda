@@ -51,6 +51,12 @@ public class ProductoServicio {
 		productoRepositorio.save(p);
 	}
 	
+	public void quitarBaja(int id) {
+		Producto p= obtenerProducto(id);
+		p.setFechaBaja(null);
+		productoRepositorio.save(p);
+	}
+	
 	/**
 	 * 
 	 * @param p

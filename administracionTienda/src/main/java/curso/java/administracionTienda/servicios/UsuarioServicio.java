@@ -1,6 +1,10 @@
 package curso.java.administracionTienda.servicios;
 
+import java.sql.Timestamp;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +24,8 @@ public class UsuarioServicio{
 	private UsuarioRepositorio usuarioRepositorio;
 	
 	
+	
+	
 	/**
 	 * 
 	 * @param email
@@ -27,11 +33,14 @@ public class UsuarioServicio{
 	 * @return
 	 */
 	
+	
+	
+	
 	public Usuario verificarUsuario(String email, String password) {
 		
 		Usuario u=usuarioRepositorio.findByEmail(email);
 
-		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(password))&& !u.getRol().getRol().equals("Cliente")) {
+		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(password))&& !u.getRol().getRol().equals("Cliente") && u.getFechaBaja()==null) {
 			return u;
 		}
 		else {
@@ -85,7 +94,13 @@ public class UsuarioServicio{
 	 */
 	
 	public void bajaUsuario(Usuario u) {
-		usuarioRepositorio.delete(u);
+		u.setFechaBaja(new Timestamp(System.currentTimeMillis()));
+		editarUsuario(u);
+	}
+	
+	public void quitarBajaUsuario(Usuario u) {
+		u.setFechaBaja(null);
+		editarUsuario(u);
 	}
 	
 	/**
@@ -97,4 +112,14 @@ public class UsuarioServicio{
 	public String encriptarClave(Usuario u) {
 		return UsuarioUtil.obtenerSha2(u.getClave());
 	}
+	
+	public boolean usuarioEnSesion(HttpSession sesion) {
+		if(sesion.getAttribute("usuarioAdministracion")==null) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
 }

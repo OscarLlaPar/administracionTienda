@@ -56,11 +56,13 @@
                                         	<td><input size="10" type="text" name="provincia" th:value="${empleado.provincia}"></td>
                                         	<td><input size="10" type="text" name="localidad" th:value="${empleado.localidad}"></td>
                                         	<td><input size="15"  type="text" name="direccion" th:value="${empleado.direccion}"></td>
+                                        	<td><input size="15" type="text" name="fechaBaja" th:value="${empleado.fechaBaja}" readonly></td>
                                         	<td><input type="hidden" name="clave" th:value="${empleado.clave}"></td>
                                         	<td><input type="hidden" name="rol" th:value="${empleado.rol.id}"></td>
                                         	<td><input type="hidden" name="id" th:value="${empleado.id}"></td>
                                         	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
-                                        	<td><a th:href="@{/login/baja(id=${empleado.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas dar de baja al empleado?')">Baja</a></td>
+                                        	<td th:if="${empleado.fechaBaja==null}"><a th:href="@{/login/baja(id=${empleado.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas dar de baja al empleado?')">Baja</a></td>
+                                        	<td th:if="${empleado.fechaBaja!=null}"><a th:href="@{/login/quitarBaja(id=${empleado.id})}" class="btn btn-success">Alta</a></td>
                                         	</form>
                                         </tr>
                                     </tbody>

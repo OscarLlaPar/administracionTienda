@@ -30,7 +30,7 @@
                             <div class="card-body">
                             	<div class="card mb-4" th:each="conf : ${configuracion}">
                             		<form class="card-body d-inline-flex justify-content-between" th:action="@{/config/editar}" th:object="${confEnCurso}" method="post">
-                                		<input type="text" name="clave" th:value="${conf.clave}">
+                                		<input type="text" name="clave" th:value="${conf.clave}" readonly>
                                 		<input th:if="${conf.tipo.equals('Texto')}" type="text" name="valor" th:value="${conf.valor}">
                                 		<input th:if="${conf.tipo.equals('Numero')}" type="number"  name="valor" th:value="${conf.valor}">
                                 		<input type="hidden" name="id" th:value="${conf.id}">

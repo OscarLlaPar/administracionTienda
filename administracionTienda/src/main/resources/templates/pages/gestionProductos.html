@@ -98,7 +98,7 @@
                             					<input type="hidden" name="id" th:value="${producto.id}">
                             					<button type="submit" name="idEditar" class="btn btn-secondary my-2" th:value="${producto.id}">Editar</button>
                             					<a th:if="${producto.fechaBaja == null}" class="btn btn-danger my-2" th:href="@{productos/baja(id=${producto.id})}"  onclick="return confirm('¿Estás seguro de que deseas dar de baja al producto?')">Baja</a>
-                            				
+                            					<a th:if="${producto.fechaBaja != null}" class="btn btn-success my-2" th:href="@{productos/quitarBaja(id=${producto.id})}">Alta</a>
                             			</div>
                             			</form>
                             		</div>
