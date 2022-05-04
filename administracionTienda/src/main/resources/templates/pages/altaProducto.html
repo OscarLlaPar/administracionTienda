@@ -8,7 +8,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div th:replace="layout/header :: cabeceraSide"></div>
+	<div th:replace="layout/header :: cabecera"></div>
 	<!--  <div th:replace="layout/sidebar :: lateral"></div>-->
 	<div id="layoutSidenav_content">
 		<main>
@@ -18,7 +18,7 @@
 				<div class="form-row row">
 					<div class="form-group col-md-6">
 						<label for="inputNombre">Nombre</label> <input type="text" name="nombre"
-							class="form-control" id="inputNombre" placeholder="Nombre">
+							class="form-control" id="inputNombre" placeholder="Nombre"  required>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputDescripcion">Proveedor</label>
@@ -30,7 +30,7 @@
 				<div class="form-group">
 					<label for="inputDescripcion">Descripción</label> <input
 							type="text" name="descripcion" class="form-control" id="inputDescripcion"
-							placeholder="Descripción">
+							placeholder="Descripción"  required>
 				</div>
 				<div class="form-row row">
 					<div class="form-group col-md-6">
@@ -42,18 +42,18 @@
 					<div class="form-group col-md-6">
 						<label for="inputPrecio">Precio</label> <input
 							type="number" step="any" name="precio" class="form-control" id="inputPrecio"
-							placeholder="Precio">
+							placeholder="Precio"  required>
 					</div>
 				</div>
 				<div class="form-row row">
 					<div class="form-group col-md-6">
 						<label for="inputStock">Stock</label> <input type="number" name="stock"
-							class="form-control" id="inputStock" placeholder="Stock">
+							class="form-control" id="inputStock" placeholder="Stock"  required>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputStock">Impuesto</label> <input
 							type="number" step="any" name="impuesto" class="form-control" id="inputStock"
-							placeholder="Impuesto">
+							placeholder="Impuesto"  required>
 					</div>
 				</div>
 				<button type="submit" class="btn btn-primary">Sign in</button>

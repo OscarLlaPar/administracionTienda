@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import curso.java.administracionTienda.entidades.Proveedor;
 import curso.java.administracionTienda.servicios.ProveedorServicio;
@@ -30,6 +31,10 @@ public class ProveedorControlador {
 			return "index";
 		}
 		
+		if(model.getAttribute("altaProveedor")!=null) {
+			model.addAttribute("altaProveedor", model.getAttribute("altaProveedor"));
+		}
+		
 		model.addAttribute("proveedores", ps.findAll());
 		model.addAttribute("proveedorEnCurso", new Proveedor());
 		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
@@ -46,15 +51,15 @@ public class ProveedorControlador {
 	
 	@RequestMapping("/alta")
 	public String alta(Model model) {
-		
+		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		model.addAttribute("proveedorEnCurso", new Proveedor());
 		return "pages/altaProveedor";
 	}
 	
 	@RequestMapping("/altaProveedor")
-	public String altaProveedor(@ModelAttribute Proveedor proveedorEnCurso) {
+	public String altaProveedor(@ModelAttribute Proveedor proveedorEnCurso, RedirectAttributes ra) {
 		ps.guardarProveedor(proveedorEnCurso);
-		
+		ra.addFlashAttribute("altaProveedor", "Nuevo proveedor añadido");
 		return "redirect:/proveedores";
 	}
 	

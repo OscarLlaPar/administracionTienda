@@ -8,9 +8,9 @@
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div th:replace="layout/header :: cabeceraSide"></div>
+	<div th:replace="layout/header :: cabecera"></div>
 	<!--  <div th:replace="layout/sidebar :: lateral"></div>-->
-	<div id="layoutSidenav_content">
+	<div class="pb-5" id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Gestión de productos</h1>
@@ -18,6 +18,14 @@
                             <li class="breadcrumb-item"><a th:href="@{/login/inicio}">Inicio</a></li>
                             <li class="breadcrumb-item active">Productos</li>
                         </ol>
+                        <div th:if="${altaProducto!=null and !altaProducto.equals('')}" class="alert alert-success alert-dismissible fade show" role="alert">	
+						 	<span th:text="${altaProducto}"></span>
+						 	 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+						<div th:if="${altaCategoria!=null and !altaCategoria.equals('')}" class="alert alert-success alert-dismissible fade show" role="alert">	
+						 	<span th:text="${altaCategoria}"></span>
+						 	 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
                         <div class="card mb-4">
                             <div class="card-body d-inline-flex">
                                 <a class="btn btn-primary m-1" th:href="@{/productos/alta}">Nuevo producto</a>

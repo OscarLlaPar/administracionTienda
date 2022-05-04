@@ -152,6 +152,11 @@ public class UsuarioControlador {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
+		
+		if(model.getAttribute("altaUsuario")!=null) {
+			model.addAttribute("altaUsuario", model.getAttribute("altaUsuario"));
+		}
+		
 		model.addAttribute("clientes", us.mostrarUsuariosPorRol("Cliente"));
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		return "pages/gestionClientes";
@@ -162,6 +167,11 @@ public class UsuarioControlador {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
+		
+		if(model.getAttribute("altaUsuario")!=null) {
+			model.addAttribute("altaUsuario", model.getAttribute("altaUsuario"));
+		}
+		
 		model.addAttribute("empleados", us.mostrarUsuariosPorRol("Empleado"));
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		return "pages/gestionEmpleados";
@@ -181,7 +191,7 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/altaUsuario")
-	public String altaUsuario(@ModelAttribute Usuario usuarioEnCurso, @RequestParam String confirmarClave, HttpSession sesion ) {
+	public String altaUsuario(@ModelAttribute Usuario usuarioEnCurso, @RequestParam String confirmarClave, HttpSession sesion, RedirectAttributes ra ) {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
@@ -193,9 +203,11 @@ public class UsuarioControlador {
 			usuarioEnCurso.setClave(us.encriptarClave(usuarioEnCurso));
 			us.editarUsuario(usuarioEnCurso);
 			if(usuarioEnCurso.getRol().getRol().equals("Cliente")) {
+				ra.addFlashAttribute("altaUsuario", "Nuevo cliente añadido");
 				return "redirect:/login/clientes";
 			}
 			else {
+				ra.addFlashAttribute("altaUsuario", "Nuevo empleado añadido");
 				return "redirect:/login/empleados";
 			}
 		}
@@ -248,7 +260,11 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/password")
-	public String password(HttpSession sesion) {
+	public String password(HttpSession sesion, Model model) {
+		if(model.getAttribute("errorPassword")!=null) {
+			model.addAttribute("errorPassword", model.getAttribute("errorPassword"));
+		}
+		
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
@@ -261,10 +277,14 @@ public class UsuarioControlador {
 		boolean esValido=true;
 		Usuario usuarioActual=(Usuario)sesion.getAttribute("usuarioAdministracion");
 		String claveUsuario=UsuarioUtil.obtenerSha2(clave);
-		if(!claveNueva.equals(confirmarClave)||!claveUsuario.equals(usuarioActual.getClave())) {
+		if(!claveUsuario.equals(usuarioActual.getClave())) {
 			esValido=false;
+			ra.addFlashAttribute("errorPassword", "Contraseña incorrecta");	
 		}
-		
+		if(!claveNueva.equals(confirmarClave) && esValido) {
+			esValido=false;
+			ra.addFlashAttribute("errorPassword", "Las contraseñas no coinciden");	
+		}
 		
 		if(!esValido) {
 			
@@ -276,7 +296,7 @@ public class UsuarioControlador {
 			us.editarUsuario(usuarioActual);
 			Configuracion adminLogado=cs.obtenerConfiguracion("adminLogado");
 			sesion.setAttribute("usuarioAdministracion", usuarioActual);
-			ra.addAttribute("passCambiada", "La contraseña ha sido cambiada");
+			ra.addFlashAttribute("passCambiada", "La contraseña ha sido cambiada");
 			if(usuarioActual.getNombre().equals("Admin") && adminLogado.getValor().equals("0")) {
 				adminLogado.setValor("1");
 				cs.guardarConfiguracion(adminLogado);

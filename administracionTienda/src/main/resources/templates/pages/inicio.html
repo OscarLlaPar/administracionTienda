@@ -9,10 +9,14 @@
 </head>
 <body class="min-vh-100">
 	<div th:replace="layout/header :: cabecera"></div>
-	<div id="layoutSidenav_content" class="min-vh-100">
+	<div class="pb-5" id="layoutSidenav_content">
 		
-			<div class="container-fluid px-5">
+			<div class="container-fluid px-5 pb-5">
 				<h1 class="mt-4">Inicio</h1>
+				<div th:if="${passcambiada!=null}" class="alert alert-success" role="alert">
+				 	<p th:text="${passCambiada}"></p>
+				 	 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
 				<div class="row">
 					<div class="col-xl-3 col-md-6" th:each="opcion : ${opciones}">
 						<div class="card bg-primary text-white mb-4">
@@ -23,7 +27,7 @@
 					</div>
 					
 				</div>
-				<div class="container">
+				<div th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}" class="container">
 					<div class="row">
 						<div class="col-sm">
 							<div class="card">

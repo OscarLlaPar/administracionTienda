@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Perfil - Administración</title>
+<title>Perfil - Administraciï¿½n</title>
 <link th:replace="layout/header :: estilos">
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div th:replace="layout/header :: cabeceraSide"></div>
+	<div th:replace="layout/header :: cabecera"></div>
 	<!--  <div th:replace="layout/sidebar :: lateral"></div>-->
-	<div id="layoutSidenav_content">
-		<main>
+	<div class="pb-5" id="layoutSidenav_content">
+		<main class="pb-3">
 			<div class="container-fluid px-5">
 				<h1 class="mt-4">Perfil</h1>
-				<div th:if="passcambiada!=null" class="alert alert-success" role="alert">
- 	<p th:text="${passCambiada}"></p>
-</div>
+				<div th:if="${passCambiada!=null and !passCambiada.equals('')}" class="alert alert-success alert-dismissible fade show" role="alert">	
+				 	<span th:text="${passCambiada}"></span>
+				 	 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
 				
 				
 				<form th:action="@{/login/editarPerfil}" th:object="${usuarioEnCurso}" method="post">

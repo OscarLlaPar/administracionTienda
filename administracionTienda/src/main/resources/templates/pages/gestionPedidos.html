@@ -8,9 +8,9 @@
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div th:replace="layout/header :: cabeceraSide"></div>
+	<div th:replace="layout/header :: cabecera"></div>
 	<!--  <div th:replace="layout/sidebar :: lateral"></div>-->
-	<div id="layoutSidenav_content">
+	<div  class="pb-5" id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Gestión de pedidos</h1>
@@ -19,18 +19,13 @@
                             <li class="breadcrumb-item active">Pedidos</li>
                         </ol>
                         <div class="card mb-4">
-                            <div class="card-body">
-                                
-                            </div>
-                        </div>
-                        <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 Tabla de pedidos
                             </div>
                             <div class="card-body overflow-auto">
                             	<form action="productos/editar" th:object="${productoEnCurso}" method="post">
-                                <table class="table" id="datatablesSimple">
+                                <table th:if="${pedidos.size()!=0}" class="table" id="datatablesSimple">
                                     <thead>
                                         <tr>
                                             <th>Usuario</th>
@@ -48,13 +43,14 @@
                                         	<td th:text="${pedido.fecha}"></td>
                                         	<td th:text="${pedido.metodoPago}"></td>
                                         	<td th:text="${pedido.estado}"></td>
-                                        	<td th:text="${pedido.total}"></td>
+                                        	<td th:text="${pedido.total + '€'}"></td>
                                         	<td th:if="${pedido.estado.equals('PE')}"><a class="btn btn-primary" th:href="@{pedidos/enviar(id=${pedido.id})}">Enviar</a></td>
                                         	<td th:if="${pedido.estado.equals('PC')} and ${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a class="btn btn-danger" th:href="@{pedidos/cancelar(id=${pedido.id})}">Cancelar</a></td>
                                         	
                                         </tr>
                                     </tbody>
                                 </table>
+                                <p th:unless="${pedidos.size()!=0}" class="text-secondary">No hay pedidos aún.</p>
                                 </form>
                             </div>
                         </div>
