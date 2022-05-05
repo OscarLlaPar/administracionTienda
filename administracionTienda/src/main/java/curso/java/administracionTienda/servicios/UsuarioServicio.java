@@ -122,4 +122,8 @@ public class UsuarioServicio{
 		}
 	}
 	
+	public List<Usuario> mostrarAdministradores(){
+		return usuarioRepositorio.mostrarAdministradores();
+	}
+	
 }

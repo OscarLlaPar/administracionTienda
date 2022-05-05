@@ -2,8 +2,11 @@ package curso.java.administracionTienda.entidades;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -16,10 +19,12 @@ import lombok.NoArgsConstructor;
 public class DetallePedido {
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="id_pedido")
-	private int pedido;
-	@Column(name="id_producto")
-	private int producto;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_pedido")
+	private Pedido pedido;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_producto")
+	private Producto producto;
 	@Column(name="precio_unidad")
 	private float precioUd;
 	@Column(name="unidades")
@@ -28,4 +33,6 @@ public class DetallePedido {
 	private float impuesto;
 	@Column(name="total")
 	private double total;
+	@Column(name="estado")
+	private String estado;
 }

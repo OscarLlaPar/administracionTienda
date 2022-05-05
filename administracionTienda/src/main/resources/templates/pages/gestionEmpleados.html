@@ -44,6 +44,7 @@
                                             <th>Provincia</th>
                                             <th>Localidad</th>
                                             <th>Dirección</th>
+                                            <th>Fecha de baja</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
@@ -60,7 +61,7 @@
                                         	<td><input size="10" type="text" name="provincia" th:value="${empleado.provincia}"></td>
                                         	<td><input size="10" type="text" name="localidad" th:value="${empleado.localidad}"></td>
                                         	<td><input size="15"  type="text" name="direccion" th:value="${empleado.direccion}"></td>
-                                        	<td><input size="15" type="text" name="fechaBaja" th:value="${empleado.fechaBaja}" readonly></td>
+                                        	<td><input size="15" type="text" th:value="${empleado.fechaBaja}" readonly></td>
                                         	<td><input type="hidden" name="clave" th:value="${empleado.clave}"></td>
                                         	<td><input type="hidden" name="rol" th:value="${empleado.rol.id}"></td>
                                         	<td><input type="hidden" name="id" th:value="${empleado.id}"></td>

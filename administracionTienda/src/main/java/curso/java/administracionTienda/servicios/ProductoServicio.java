@@ -92,4 +92,9 @@ public class ProductoServicio {
 	public LinkedHashSet<Producto> findAllSortByPedidos(){
 		return productoRepositorio.findAllSortByPedidos();
 	}
+	
+	public List<Producto> findByNombre(String nombre){
+		return productoRepositorio.findByNombre(nombre);
+	}
+	
 }

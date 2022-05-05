@@ -92,7 +92,7 @@ public class UsuarioControlador {
 			model.addAttribute("topProductosValoraciones", ps.findAllSortByValoracion());
 			System.out.println(ps.findAllSortByValoracion());
 			model.addAttribute("topProductosVentas", ps.findAllSortByPedidos());
-			System.out.println(ps.findAllSortByPedidos());
+			//System.out.println(ps.findAllSortByPedidos());
 			model.addAttribute("unidadesVendidas", dps.sumUnidades());
 			model.addAttribute("totalVentas", String.format("%.2f", pds.sumTotal()));
 			
@@ -206,14 +206,18 @@ public class UsuarioControlador {
 				ra.addFlashAttribute("altaUsuario", "Nuevo cliente añadido");
 				return "redirect:/login/clientes";
 			}
-			else {
+			else if(usuarioEnCurso.getRol().getRol().equals("Empleado")) {
 				ra.addFlashAttribute("altaUsuario", "Nuevo empleado añadido");
 				return "redirect:/login/empleados";
 			}
+			else if(usuarioEnCurso.getRol().getRol().equals("Administrador")) {
+				ra.addFlashAttribute("altaUsuario", "Nuevo administrador añadido");
+				return "redirect:/login/administradores";
+			}
 		}
-		else {
+		
 			return "redirect:/login/alta";
-		}
+		
 		
 	}
 	
@@ -228,9 +232,11 @@ public class UsuarioControlador {
 		if(usuarioEnCurso.getRol().getRol().equals("Cliente")) {
 			return "redirect:/login/clientes";
 		}
-		else {
+		if(usuarioEnCurso.getRol().getRol().equals("Empleado")) {
 			return "redirect:/login/empleados";
 		}
+		
+		return "redirect:/login/administradores";
 		
 	}
 	
@@ -242,9 +248,10 @@ public class UsuarioControlador {
 		if(u.getRol().getRol().equals("Cliente")) {
 			return "redirect:/login/clientes";
 		}
-		else {
+		if(u.getRol().getRol().equals("Empleado")) {
 			return "redirect:/login/empleados";
 		}
+		return "redirect:/login/administradores";
 	}
 	
 	@RequestMapping("/quitarBaja")
@@ -254,9 +261,10 @@ public class UsuarioControlador {
 		if(u.getRol().getRol().equals("Cliente")) {
 			return "redirect:/login/clientes";
 		}
-		else {
+		if(u.getRol().getRol().equals("Empleado")) {
 			return "redirect:/login/empleados";
 		}
+		return "redirect:/login/administradores";
 	}
 	
 	@RequestMapping("/password")
@@ -309,5 +317,21 @@ public class UsuarioControlador {
 		
 		
 	}
+	
+	@RequestMapping("/administradores")
+	public String mostrarAdministradores(Model model, HttpSession sesion) {
+		if(!us.usuarioEnSesion(sesion)) {
+			return "index";
+		}
+		
+		if(model.getAttribute("altaUsuario")!=null) {
+			model.addAttribute("altaUsuario", model.getAttribute("altaUsuario"));
+		}
+		
+		model.addAttribute("administradores", us.mostrarAdministradores());
+		model.addAttribute("usuarioEnCurso", new Usuario());
+		return "pages/gestionAdministradores";
+	}
+	
 	
 }

@@ -18,6 +18,9 @@ public class PedidoServicio {
 	private ConfiguracionServicio cs;
 	
 	@Autowired
+	private DetallePedidoServicio dps;
+	
+	@Autowired
 	private PedidoRepositorio pedidoRepositorio;
 	
 	@Autowired
@@ -41,6 +44,8 @@ public class PedidoServicio {
 	public Pedido obtenerPedido(int id) {
 		return pedidoRepositorio.findById(id).get();
 	}
+	
+	
 	
 	/**
 	 * 

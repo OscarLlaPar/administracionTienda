@@ -1,8 +1,12 @@
 package curso.java.administracionTienda.servicios;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import curso.java.administracionTienda.entidades.DetallePedido;
+import curso.java.administracionTienda.entidades.Pedido;
 import curso.java.administracionTienda.modelos.DetallePedidoRepositorio;
 import curso.java.administracionTienda.modelos.PedidoRepositorio;
 
@@ -29,6 +33,22 @@ public class DetallePedidoServicio {
 		}
 		
 		
+	}
+	
+	public void guardarDetallePedido(DetallePedido p) {
+		detallePedidoRepositorio.save(p);
+	}
+	
+	public List<DetallePedido> obtenerDetalles(int idPedido){
+		return detallePedidoRepositorio.obtenerDetalles(idPedido);
+	}
+	
+	public DetallePedido findById(int id) {
+		return detallePedidoRepositorio.findById(id).get();
+	}
+	
+	public List<DetallePedido> pendientesCancelacion(int idPedido){
+		return detallePedidoRepositorio.pendientesCancelacion(idPedido);
 	}
 	
 }

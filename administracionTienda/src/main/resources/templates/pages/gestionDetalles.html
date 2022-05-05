@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Pedidos - Administración</title>
+<title>Detalles - Administración</title>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link th:replace="layout/header :: estilos">
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -13,47 +12,45 @@
 	<div  class="pb-5" id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Gestión de pedidos</h1>
+                        <h1 class="mt-4">Detalles de pedido</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a th:href="@{login/inicio}">Inicio</a></li>
-                            <li class="breadcrumb-item active">Pedidos</li>
+                            <li class="breadcrumb-item"><a th:href="@{/pedidos}">Pedidos</a></li>
+                            <li class="breadcrumb-item active">Detalles</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Tabla de pedidos
+                                Tabla de detalles
                             </div>
                             <div class="card-body overflow-auto">
                             	<form action="productos/editar" th:object="${productoEnCurso}" method="post">
-                                <table th:if="${pedidos.size()!=0}" class="table" id="datatablesSimple">
+                                <table th:if="${detalles.size()!=0}" class="table" id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Usuario</th>
-                                            <th>Núm. factura</th>
-                                            <th>Fecha</th>
-                                            <th>Método pago</th>
+                                            <th>Producto</th>
+                                            <th>Precio Ud.</th>
+                                            <th>Unidades</th>
+                                            <th>Impuesto</th>
                                             <th>Estado</th>
                                             <th>Total</th>
-                                            <th></th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="pedido : ${pedidos}">
-                                        	<td th:text="${pedido.usuario.nombre+' '+pedido.usuario.apellido1+' '+pedido.usuario.apellido2}"></td>
-                                        	<td th:text="${pedido.numFactura}"></td>
-                                        	<td th:text="${pedido.fecha}"></td>
-                                        	<td th:text="${pedido.metodoPago}"></td>
-                                        	<td th:text="${pedido.estado}"></td>
-                                        	<td th:text="${pedido.total + '€'}"></td>
-                                        	<td><a class="btn btn-primary" th:href="@{pedidos/detalles(id=${pedido.id})}">Ver detalles</a></td>
-                                        	<td th:if="${pedido.estado.equals('PE')}"><a class="btn btn-primary" th:href="@{pedidos/enviar(id=${pedido.id})}">Enviar</a></td>
-                                        	<td th:if="${pedido.estado.equals('PC')} and ${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a class="btn btn-danger" th:href="@{pedidos/cancelar(id=${pedido.id})}">Cancelar</a></td>
+                                        <tr th:each="detalle : ${detalles}">
+                                        	<td th:text="${detalle.producto.nombre}"></td>
+                                        	<td th:text="${detalle.precioUd}"></td>
+                                        	<td th:text="${detalle.unidades}"></td>
+                                        	<td th:text="${detalle.impuesto}"></td>
+                                        	<td th:text="${detalle.estado}"></td>
+                                        	<td th:text="${detalle.total + '€'}"></td>
+                                        	
+                                        	<td th:if="${detalle.estado.equals('PC')} and ${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a class="btn btn-danger" th:href="@{/pedidos/cancelarDetalle(id=${detalle.id},idPedido=${detalle.pedido.id})}">Cancelar</a></td>
                                         	
                                         </tr>
                                     </tbody>
                                 </table>
-                                <p th:unless="${pedidos.size()!=0}" class="text-secondary">No hay pedidos aún.</p>
+                                <p th:unless="${detalles.size()!=0}" class="text-secondary">No hay pedidos aún.</p>
                                 </form>
                             </div>
                         </div>

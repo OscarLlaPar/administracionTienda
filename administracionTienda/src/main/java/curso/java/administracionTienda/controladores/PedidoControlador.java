@@ -1,5 +1,7 @@
 package curso.java.administracionTienda.controladores;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import curso.java.administracionTienda.entidades.DetallePedido;
 import curso.java.administracionTienda.entidades.Pedido;
 import curso.java.administracionTienda.servicios.DetallePedidoServicio;
 import curso.java.administracionTienda.servicios.PedidoServicio;
@@ -31,9 +35,12 @@ public class PedidoControlador {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
+		List<Pedido> pedidos=ps.obtenerPedidos();
 		
-		System.out.println(ps.obtenerPedidos());
-		model.addAttribute("pedidos", ps.obtenerPedidos());
+		
+		
+		model.addAttribute("pedidos", pedidos);
+		System.out.println(pedidos);
 		return "pages/gestionPedidos";
 	}
 	
@@ -43,6 +50,13 @@ public class PedidoControlador {
 		pedidoEnCurso.setEstado("E");
 		ps.guardarPedido(pedidoEnCurso);
 		ps.asignarNumeroFactura(pedidoEnCurso);
+		List<DetallePedido> lista=dps.obtenerDetalles(id);
+		for(DetallePedido detalle:lista) {
+			if(detalle.getEstado().equals("PE")) {
+				detalle.setEstado("E");
+				dps.guardarDetallePedido(detalle);
+			}
+		}
 		return "redirect:/pedidos";
 	}
 	
@@ -51,8 +65,37 @@ public class PedidoControlador {
 		Pedido pedidoEnCurso=ps.obtenerPedido(id);
 		pedidoEnCurso.setEstado("C");
 		ps.guardarPedido(pedidoEnCurso);
-		
+		List<DetallePedido> lista=dps.obtenerDetalles(id);
+		for(DetallePedido detalle:lista) {
+				detalle.setEstado("C");
+				dps.guardarDetallePedido(detalle);
+			
+		}
 		return "redirect:/pedidos";
+	}
+	
+	@RequestMapping("/detalles")
+	public String verDetalles(@RequestParam int id, Model model) {
+		List<DetallePedido> lista=dps.obtenerDetalles(id);
+		model.addAttribute("detalles", lista);
+		return "pages/gestionDetalles";
+	}
+	
+	@RequestMapping("/cancelarDetalle")
+	public String cancelarDetalle(@RequestParam int id, @RequestParam int idPedido, RedirectAttributes ra) {
+		DetallePedido detalle=dps.findById(id);
+		detalle.setEstado("C");
+		dps.guardarDetallePedido(detalle);
+		Pedido p=ps.obtenerPedido(idPedido);
+		p.setTotal(p.getTotal()-detalle.getTotal());
+		
+		
+		if(dps.pendientesCancelacion(idPedido).size()==0) {
+			p.setEstado("PE");
+			
+		}
+		ps.guardarPedido(p);
+		return "redirect:/pedidos/detalles?id="+idPedido;
 	}
 	
 }

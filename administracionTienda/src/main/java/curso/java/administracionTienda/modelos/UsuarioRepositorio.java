@@ -13,4 +13,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 	
 	Usuario findByEmail(String email);
 	
+	@Query(value="SELECT * FROM usuarios u WHERE id_rol=3 AND nombre!='Admin'", nativeQuery= true)
+	List<Usuario> mostrarAdministradores();
+	
 }

@@ -1,6 +1,7 @@
 package curso.java.administracionTienda.entidades;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,4 +35,6 @@ public class Pedido {
 	private String numFactura;
 	@Column(name="total")
 	private double total;
+	
+	
 }

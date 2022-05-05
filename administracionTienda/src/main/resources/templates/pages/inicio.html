@@ -25,7 +25,20 @@
 							</div>
 						</div>
 					</div>
-					
+					<div class="col-xl-3 col-md-6" th:if="${session.usuarioAdministracion.nombre.equals('Admin')}">
+						<div class="card bg-primary text-white mb-4">
+							<div class="card-body">
+								<a class="link-light" th:href="@{/login/administradores}">Gestionar administradores</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-md-6" th:if="${session.usuarioAdministracion.nombre.equals('Admin')}">
+						<div class="card bg-primary text-white mb-4">
+							<div class="card-body">
+								<a class="link-light" th:href="@{/valoraciones}">Gestionar valoraciones</a>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}" class="container">
 					<div class="row">
