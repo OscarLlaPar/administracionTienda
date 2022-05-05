@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,7 @@ public class Usuario {
 	private String email;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_rol")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Rol rol;
 	@Column(name="clave")
 	private String clave;

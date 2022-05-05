@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import curso.java.administracionTienda.entidades.Producto;
 import curso.java.administracionTienda.entidades.Usuario;
 
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
@@ -15,5 +16,8 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 	
 	@Query(value="SELECT * FROM usuarios u WHERE id_rol=3 AND nombre!='Admin'", nativeQuery= true)
 	List<Usuario> mostrarAdministradores();
+	
+	@Query(value="SELECT * FROM usuarios u WHERE nombre LIKE %?1%", nativeQuery= true)
+	List<Usuario> findByNombre(String nombre);
 	
 }

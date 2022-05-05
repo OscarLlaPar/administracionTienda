@@ -40,6 +40,13 @@
 						</div>
 					</div>
 				</div>
+				<div class="card" th:if="${session.usuarioAdministracion.nombre.equals('Admin')}">
+						<div class="card bg-primary text-white mb-4">
+							<div class="card-body">
+								<a class="link-light" th:href="@{/login/busqueda}">Búsqueda de usuarios</a>
+							</div>
+						</div>
+					</div>
 				<div th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}" class="container">
 					<div class="row">
 						<div class="col-sm">

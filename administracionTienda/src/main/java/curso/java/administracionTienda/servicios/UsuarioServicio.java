@@ -126,4 +126,8 @@ public class UsuarioServicio{
 		return usuarioRepositorio.mostrarAdministradores();
 	}
 	
+	public List<Usuario> findByNombre(String nombre){
+		return usuarioRepositorio.findByNombre(nombre);
+	}
+	
 }

@@ -131,6 +131,7 @@ public class UsuarioControlador {
 	public String editarPerfil(@ModelAttribute Usuario usuarioEnCurso, HttpSession sesion) {
 		System.out.println(usuarioEnCurso);
 		Usuario usuarioActual=(Usuario)sesion.getAttribute("usuarioAdministracion");
+		usuarioEnCurso.setClave(usuarioActual.getClave());
 		System.out.println(usuarioActual);
 		boolean esValido=true;
 		
@@ -230,7 +231,11 @@ public class UsuarioControlador {
 		}
 		
 		System.out.println(usuarioEnCurso);
+		Usuario usuarioReal=us.buscarUsuarioPorId(usuarioEnCurso.getId());
+		usuarioEnCurso.setClave(usuarioReal.getClave());
 		us.editarUsuario(usuarioEnCurso);
+		
+		
 		if(usuarioEnCurso.getRol().getRol().equals("Cliente")) {
 			return "redirect:/login/clientes";
 		}
@@ -336,5 +341,9 @@ public class UsuarioControlador {
 		return "pages/gestionAdministradores";
 	}
 	
+	@RequestMapping("/busqueda")
+	public String busquedaUsuarios() {
+		return "pages/mostrarUsuarios";
+	}
 	
 }

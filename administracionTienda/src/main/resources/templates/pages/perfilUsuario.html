@@ -71,7 +71,6 @@
 					</div>
 				</div>
 				<input type="hidden" name="id" th:value="${session.usuarioAdministracion.id}">
-				<input type="hidden" name="clave" th:value="${session.usuarioAdministracion.clave}">
 				<input type="hidden" name="rol" th:value="${session.usuarioAdministracion.rol.id}">
 				<button type="submit" class="btn btn-primary my-2">Editar perfil</button>
 				<a th:href="@{/login/password}" class="btn btn-secondary my-3">Cambiar contraseña</a>

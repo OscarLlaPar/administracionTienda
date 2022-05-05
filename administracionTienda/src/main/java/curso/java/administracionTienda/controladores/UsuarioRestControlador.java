@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import curso.java.administracionTienda.entidades.Producto;
+import curso.java.administracionTienda.entidades.Usuario;
 import curso.java.administracionTienda.servicios.ProductoServicio;
+import curso.java.administracionTienda.servicios.UsuarioServicio;
 
 @RestController
-@RequestMapping("/apiold")
-public class ProductoRestControlador {
+@RequestMapping("/api")
+public class UsuarioRestControlador {
 
 	@Autowired
-	private ProductoServicio ps;
+	private UsuarioServicio us;
 	
-	@GetMapping(value="/productos", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Producto> mostrarProductos(@RequestParam String nombre){
-		return ps.findByNombre(nombre);
+	@GetMapping(value="/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Usuario> mostrarProductos(@RequestParam String nombre){
+		return us.findByNombre(nombre);
 	}
 	
 }
