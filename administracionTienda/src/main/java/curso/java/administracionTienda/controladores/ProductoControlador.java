@@ -144,9 +144,10 @@ public class ProductoControlador {
         	
             Workbook libro;
 			try {
-				libro = Workbook.getWorkbook(archivo);
+				
 				WorkbookSettings ws = new WorkbookSettings(); 
-				ws.setEncoding("Cp1252");
+				ws.setEncoding("UTF-8");
+				libro = Workbook.getWorkbook(archivo,ws);
 				Sheet hoja = libro.getSheet(0);
 	            for(int i=1; i<hoja.getRows(); i++){
 	                

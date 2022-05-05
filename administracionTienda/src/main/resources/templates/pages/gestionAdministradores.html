@@ -33,45 +33,66 @@
                                 Tabla de administradores
                             </div>
                             <div class="card-body overflow-auto">
-                                <table class="w-50" id="datatablesSimple">
-                                    <thead>
-                                        <tr class="border-bottom border-dark">
-                                            <th>Email</th>
-                                            <th>Nombre</th>
-                                            <th colspan="2">Apellidos</th>
-                                            <th>Dni</th>
-                                            <th>Teléfono</th>
-                                            <th>Provincia</th>
-                                            <th>Localidad</th>
-                                            <th>Dirección</th>
-                                            <th>Fecha de baja</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr  th:each="administrador : ${administradores}">
-                                        	<form th:action="@{/login/editarUsuario}" th:object="${usuarioEnCurso}" method="post">
-                                        	<td><input type="email" name="email" th:value="${administrador.email}"></td>
-                                        	<td><input size="10" type="text" name="nombre" th:value="${administrador.nombre}"></td>
-                                        	<td><input size="10" type="text" name="apellido1" th:value="${administrador.apellido1}"></td>
-                                        	<td><input size="10" type="text" name="apellido2" th:value="${administrador.apellido2}"></td>
-                                        	<td><input size="9" type="text" name="dni" th:value="${administrador.dni}"></td>
-                                        	<td><input size="9" type="text" name="telefono" th:value="${administrador.telefono}"></td>
-                                        	<td><input size="10" type="text" name="provincia" th:value="${administrador.provincia}"></td>
-                                        	<td><input size="10" type="text" name="localidad" th:value="${administrador.localidad}"></td>
-                                        	<td><input size="15"  type="text" name="direccion" th:value="${administrador.direccion}"></td>
-                                        	<td><input size="15" type="text" th:value="${administrador.fechaBaja}" readonly></td>
-                                        	<td><input type="hidden" name="clave" th:value="${administrador.clave}"></td>
-                                        	<td><input type="hidden" name="rol" th:value="${administrador.rol.id}"></td>
-                                        	<td><input type="hidden" name="id" th:value="${administrador.id}"></td>
-                                        	<td><button type="submit" class="btn btn-secondary">Editar</button></td>
-                                        	<td th:if="${administrador.fechaBaja==null}"><a th:href="@{/login/baja(id=${administrador.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas dar de baja al administrador?')">Baja</a></td>
-                                        	<td th:if="${administrador.fechaBaja!=null}"><a th:href="@{/login/quitarBaja(id=${administrador.id})}" class="btn btn-success">Alta</a></td>
-                                        	</form>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                 <div class="list-group-item" th:each="administrador : ${administradores}">
+                            			<form th:action="@{/login/editarUsuario}" th:object="${usuarioEnCurso}" method="post">
+                            			<div class="container">
+                            				<div class="row">
+                            					<div class="col-sm">
+                            						<label>Email</label>
+                            						<input type="email" class="form-control" name="email" th:value="${administrador.email}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Nombre</label>
+                            						<input type="text" class="form-control" name="nombre" th:value="${administrador.nombre}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Primer apellido</label>
+                            						<input type="text" class="form-control" name="apellido1" th:value="${administrador.apellido1}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Segundo apellido</label>
+                            						<input type="text" class="form-control" name="apellido2" th:value="${administrador.apellido2}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Dirección</label>
+                            						<input type="text" class="form-control" name="direccion" th:value="${administrador.direccion}">
+                            					</div>
+                            				</div>
+                            				<div class="row">
+                            				<div class="col-sm">
+                            						<label>Provincia</label>
+                            						<select name="provincia" class="form-select">
+                            							<option th:each="provincia : ${provincias}" th:value="${provincia}" th:text="${provincia}" th:selected="${administrador.provincia.equals(provincia)}"></option>
+                            						</select>
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Localidad</label>
+                            						<input type="text" class="form-control" name="localidad" th:value="${administrador.localidad}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>Teléfono</label>
+                            						<input type="text" class="form-control" name="telefono" th:value="${administrador.telefono}">
+                            					</div>
+                            					<div class="col-sm">
+                            						<label>DNI</label>
+                            						<input type="text" class="form-control" name="dni" th:value="${administrador.dni}">
+                            					</div>
+                            					
+                            					<div class="col-sm">
+                            						<label>Fecha de baja</label>
+                            						<input type="text" class="form-control" th:value="${administrador.fechaBaja}" readonly>
+                            					</div>
+                            					
+                            				</div>
+                            				<input type="hidden" name="clave" th:value="${administrador.clave}">
+                                        	<input type="hidden" name="rol" th:value="${administrador.rol.id}">
+                            				<input type="hidden" name="id" th:value="${administrador.id}">
+                            					<button type="submit" class="btn btn-secondary my-2">Editar</button>
+                            					<a th:if="${administrador.fechaBaja==null}" class="btn btn-danger my-2" th:href="@{/login/baja(id=${administrador.id})}"  onclick="return confirm('¿Estás seguro de que deseas dar de baja al administrador?')">Baja</a>
+                            					<a th:if="${administrador.fechaBaja!=null}" class="btn btn-success" th:href="@{/login/quitarBaja(id=${administrador.id})}">Alta</a>
+                            			</div>
+                            			</form>
+                            		</div>
                             </div>
                         </div>
                     </div>

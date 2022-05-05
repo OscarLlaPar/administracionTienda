@@ -42,8 +42,13 @@
                                         	<td th:text="${detalle.precioUd}"></td>
                                         	<td th:text="${detalle.unidades}"></td>
                                         	<td th:text="${detalle.impuesto}"></td>
-                                        	<td th:text="${detalle.estado}"></td>
-                                        	<td th:text="${detalle.total + '€'}"></td>
+                                        	<td th:switch="${detalle.estado}">
+                                        		<p th:case="'E'" class="text-success"><strong>Enviado</strong></p>
+                                        		<p th:case="'PE'"><strong>Pendiente de envío</strong></p>
+                                        		<p th:case="'PC'" class="text-warning"><strong>Pendiente de cancelación</strong></p>
+                                        		<p th:case="'C'" class="text-danger"><strong> Cancelado</strong></p>
+                                        	</td>
+                                        	<td th:text="${T(java.lang.String).format('%.2f', detalle.total)  + '€'}"></td>
                                         	
                                         	<td th:if="${detalle.estado.equals('PC')} and ${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a class="btn btn-danger" th:href="@{/pedidos/cancelarDetalle(id=${detalle.id},idPedido=${detalle.pedido.id})}">Cancelar</a></td>
                                         	

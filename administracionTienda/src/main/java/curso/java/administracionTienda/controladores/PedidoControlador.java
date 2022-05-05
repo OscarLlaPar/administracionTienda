@@ -1,5 +1,6 @@
 package curso.java.administracionTienda.controladores;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,7 +36,7 @@ public class PedidoControlador {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
-		List<Pedido> pedidos=ps.obtenerPedidos();
+		LinkedList<Pedido> pedidos=ps.obtenerPedidosOrdenados();
 		
 		
 		

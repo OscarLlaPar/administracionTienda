@@ -1,6 +1,7 @@
 package curso.java.administracionTienda.servicios;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,9 @@ public class PedidoServicio {
 		else {
 			return 0;
 		}
+	}
+	
+	public LinkedList<Pedido> obtenerPedidosOrdenados(){
+		return pedidoRepositorio.obtenerPedidos();
 	}
 }

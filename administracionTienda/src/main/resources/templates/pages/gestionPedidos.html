@@ -44,8 +44,14 @@
                                         	<td th:text="${pedido.numFactura}"></td>
                                         	<td th:text="${pedido.fecha}"></td>
                                         	<td th:text="${pedido.metodoPago}"></td>
-                                        	<td th:text="${pedido.estado}"></td>
-                                        	<td th:text="${pedido.total + '€'}"></td>
+                                        	<td th:switch="${pedido.estado}">
+                                        		<p th:case="'E'" class="text-success"><strong>Enviado</strong> </p>
+                                        		<p th:case="'PE'" ><strong>Pendiente de envío</strong></p>
+                                        		<p th:case="'PCD'" class="text-warning"><strong> Pendiente de cancelación de detalle</strong></p>
+                                        		<p th:case="'PC'" class="text-warning" ><strong> Pendiente de cancelación</strong></p>
+                                        		<p th:case="'C'" class="text-danger"><strong> Cancelado</strong></p>
+                                        	</td>
+                                        	<td th:text="${T(java.lang.String).format('%.2f', pedido.total) + '€'}"></td>
                                         	<td><a class="btn btn-primary" th:href="@{pedidos/detalles(id=${pedido.id})}">Ver detalles</a></td>
                                         	<td th:if="${pedido.estado.equals('PE')}"><a class="btn btn-primary" th:href="@{pedidos/enviar(id=${pedido.id})}">Enviar</a></td>
                                         	<td th:if="${pedido.estado.equals('PC')} and ${session.usuarioAdministracion.rol.rol.equals('Administrador')}"><a class="btn btn-danger" th:href="@{pedidos/cancelar(id=${pedido.id})}">Cancelar</a></td>

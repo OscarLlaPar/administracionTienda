@@ -159,6 +159,7 @@ public class UsuarioControlador {
 		
 		model.addAttribute("clientes", us.mostrarUsuariosPorRol("Cliente"));
 		model.addAttribute("usuarioEnCurso", new Usuario());
+		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/gestionClientes";
 	}
 	
@@ -174,6 +175,7 @@ public class UsuarioControlador {
 		
 		model.addAttribute("empleados", us.mostrarUsuariosPorRol("Empleado"));
 		model.addAttribute("usuarioEnCurso", new Usuario());
+		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/gestionEmpleados";
 	}
 	
@@ -330,6 +332,7 @@ public class UsuarioControlador {
 		
 		model.addAttribute("administradores", us.mostrarAdministradores());
 		model.addAttribute("usuarioEnCurso", new Usuario());
+		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/gestionAdministradores";
 	}
 	
