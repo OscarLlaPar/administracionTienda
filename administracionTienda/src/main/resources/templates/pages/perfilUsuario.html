@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Perfil - Administraci�n</title>
+<title>Perfil - Administración</title>
 <link th:replace="layout/header :: estilos">
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -28,7 +28,7 @@
 					<div class="form-group col-md-6">
 						<label for="inputNombre">Nombre</label> <input
 							type="text" name="nombre" class="form-control" id="inputNombre"
-							th:value="${session.usuarioAdministracion.nombre}" >
+							th:value="${session.usuarioAdministracion.nombre}" th:readonly="${session.usuarioAdministracion.nombre.equals('Admin')}" >
 					</div>
 				</div>
 				<div class="form-row row">

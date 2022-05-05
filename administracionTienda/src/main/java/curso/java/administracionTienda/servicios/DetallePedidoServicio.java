@@ -51,4 +51,8 @@ public class DetallePedidoServicio {
 		return detallePedidoRepositorio.pendientesCancelacion(idPedido);
 	}
 	
+	public List<DetallePedido> pendientesEnvio(int idPedido){
+		return detallePedidoRepositorio.pendientesEnvio(idPedido);
+	}
+	
 }

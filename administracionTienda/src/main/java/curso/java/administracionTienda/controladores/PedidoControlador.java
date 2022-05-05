@@ -65,6 +65,7 @@ public class PedidoControlador {
 	public String cancelarPedido(@RequestParam int id) {
 		Pedido pedidoEnCurso=ps.obtenerPedido(id);
 		pedidoEnCurso.setEstado("C");
+		pedidoEnCurso.setTotal(0.0);
 		ps.guardarPedido(pedidoEnCurso);
 		List<DetallePedido> lista=dps.obtenerDetalles(id);
 		for(DetallePedido detalle:lista) {
@@ -91,10 +92,15 @@ public class PedidoControlador {
 		p.setTotal(p.getTotal()-detalle.getTotal());
 		
 		
-		if(dps.pendientesCancelacion(idPedido).size()==0) {
+		if(dps.pendientesCancelacion(idPedido).size()==0 && dps.pendientesEnvio(idPedido).size()!=0) {
 			p.setEstado("PE");
 			
 		}
+		if(dps.pendientesCancelacion(idPedido).size()==0 && dps.pendientesEnvio(idPedido).size()==0) {
+			p.setEstado("C");
+			
+		}
+		
 		ps.guardarPedido(p);
 		return "redirect:/pedidos/detalles?id="+idPedido;
 	}

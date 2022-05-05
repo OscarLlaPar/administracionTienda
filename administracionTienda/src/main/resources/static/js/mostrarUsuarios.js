@@ -57,7 +57,16 @@ busqueda.addEventListener("keyup", function(event){
 			celda4.innerHTML=usuario.email;
 			filaTabla.appendChild(celda4);
 			let celda5=document.createElement("td");
-			celda5.innerHTML=usuario.rol.rol;
+			let enlaceRol=document.createElement("a");
+			enlaceRol.innerHTML=usuario.rol.rol;
+			switch(usuario.rol.rol){
+				case "Administrador": enlaceRol.setAttribute("href", "/login/administradores");
+					break;
+				case "Empleado": enlaceRol.setAttribute("href", "/login/empleados");
+					break;
+				case "Cliente": enlaceRol.setAttribute("href", "/login/clientes");
+			}
+			celda5.appendChild(enlaceRol);
 			filaTabla.appendChild(celda5);
 			console.log(usuario);
 			contenidoTabla.appendChild(filaTabla);

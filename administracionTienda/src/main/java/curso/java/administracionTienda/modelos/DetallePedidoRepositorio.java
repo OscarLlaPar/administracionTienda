@@ -20,4 +20,7 @@ public interface DetallePedidoRepositorio extends JpaRepository<DetallePedido, I
 	@Query(value="SELECT * FROM detalles_pedido d WHERE estado='PC' AND id_pedido =?1", nativeQuery= true)
 	List<DetallePedido> pendientesCancelacion(int idPedido);
 	
+	@Query(value="SELECT * FROM detalles_pedido d WHERE estado='PE' AND id_pedido =?1", nativeQuery= true)
+	List<DetallePedido> pendientesEnvio(int idPedido);
+	
 }
