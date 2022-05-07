@@ -12,7 +12,9 @@ CREATE TABLE `productos` (
   `fecha_alta` timestamp,
   `fecha_baja` timestamp null,
   `impuesto` float,
-  `imagen` varchar(255)
+  `imagen` varchar(255),
+  `audio` varchar(255),
+  `id_proveedor` int
 );
 
 CREATE TABLE `categorias` (
@@ -27,7 +29,8 @@ CREATE TABLE `roles` (
 );
 
 CREATE TABLE `usuarios` (
-  `email` varchar(255) PRIMARY KEY,
+  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `email` varchar(255),
   `id_rol` int,
   `clave` varchar(255),
   `nombre` varchar(255),
@@ -37,12 +40,13 @@ CREATE TABLE `usuarios` (
   `provincia` varchar(255),
   `localidad` varchar(255),
   `telefono` varchar(255),
-  `dni` varchar(255)
+  `dni` varchar(255),
+  `fecha_baja` timestamp null
 );
 
 CREATE TABLE `pedidos` (
   `id` int PRIMARY KEY,
-  `email_usuario` varchar(255),
+  `id_usuario` int,
   `fecha` timestamp,
   `metodo_pago` varchar(255),
   `estado` varchar(255),
@@ -57,7 +61,8 @@ CREATE TABLE `detalles_pedido` (
   `precio_unidad` float,
   `unidades` int,
   `impuesto` float,
-  `total` double
+  `total` double,
+  `estado` varchar(255)
 );
 
 CREATE TABLE `opciones_menu` (
@@ -77,7 +82,7 @@ CREATE TABLE `configuracion` (
 CREATE TABLE `valoraciones` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `id_producto` int,
-  `email_usuario` varchar(255),
+  `id_usuario` int,
   `valoracion` int,
   `comentario` varchar(255)
 );
@@ -90,7 +95,8 @@ CREATE TABLE `proveedores` (
   `provincia` varchar(255),
   `telefono` varchar(255),
   `cif` varchar(255),
-  `email` varchar(255)
+  `email` varchar(255),
+  `fecha_baja` timestamp null
 );
 
 CREATE TABLE `descuentos` (
@@ -113,11 +119,13 @@ CREATE TABLE `metodos_pago` (
 
 ALTER TABLE `productos` ADD FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`);
 
+ALTER TABLE `productos` ADD FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`);
+
 ALTER TABLE `usuarios` ADD FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`);
 
 ALTER TABLE `opciones_menu` ADD FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`);
 
-ALTER TABLE `pedidos` ADD FOREIGN KEY (`email_usuario`) REFERENCES `usuarios` (`email`);
+ALTER TABLE `pedidos` ADD FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 ALTER TABLE `detalles_pedido` ADD FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`);
 
@@ -125,4 +133,4 @@ ALTER TABLE `detalles_pedido` ADD FOREIGN KEY (`id_producto`) REFERENCES `produc
 
 ALTER TABLE `valoraciones` ADD FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`);
 
-ALTER TABLE `valoraciones` ADD FOREIGN KEY (`email_usuario`) REFERENCES `usuarios` (`email`);
+ALTER TABLE `valoraciones` ADD FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
