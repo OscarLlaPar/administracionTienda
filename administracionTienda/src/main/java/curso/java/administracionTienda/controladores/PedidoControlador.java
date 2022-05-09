@@ -16,6 +16,7 @@ import curso.java.administracionTienda.entidades.DetallePedido;
 import curso.java.administracionTienda.entidades.Pedido;
 import curso.java.administracionTienda.servicios.DetallePedidoServicio;
 import curso.java.administracionTienda.servicios.PedidoServicio;
+import curso.java.administracionTienda.servicios.ProductoServicio;
 import curso.java.administracionTienda.servicios.UsuarioServicio;
 
 @Controller
@@ -30,6 +31,9 @@ public class PedidoControlador {
 	
 	@Autowired
 	private UsuarioServicio us;
+	
+	@Autowired
+	private ProductoServicio prs;
 	
 	@RequestMapping("")
 	public String mostrarPedidos(Model model, HttpSession sesion) {
@@ -70,6 +74,8 @@ public class PedidoControlador {
 		List<DetallePedido> lista=dps.obtenerDetalles(id);
 		for(DetallePedido detalle:lista) {
 				detalle.setEstado("C");
+				detalle.getProducto().setStock(detalle.getProducto().getStock()+detalle.getUnidades());
+				prs.editarProducto(detalle.getProducto());
 				dps.guardarDetallePedido(detalle);
 			
 		}
@@ -87,7 +93,13 @@ public class PedidoControlador {
 	public String cancelarDetalle(@RequestParam int id, @RequestParam int idPedido, RedirectAttributes ra) {
 		DetallePedido detalle=dps.findById(id);
 		detalle.setEstado("C");
+		
+		detalle.getProducto().setStock(detalle.getProducto().getStock()+detalle.getUnidades());
+		prs.editarProducto(detalle.getProducto());
+		
 		dps.guardarDetallePedido(detalle);
+		
+		
 		Pedido p=ps.obtenerPedido(idPedido);
 		p.setTotal(p.getTotal()-detalle.getTotal());
 		

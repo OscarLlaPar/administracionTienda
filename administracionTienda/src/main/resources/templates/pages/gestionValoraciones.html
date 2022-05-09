@@ -31,7 +31,7 @@
 									</div>
 					
 									<p class="mx-5" th:text="${valoracion.comentario}"><p>
-									<a class="btn btn-danger my-3" th:href="@{/valoraciones/eliminar(id=${valoracion.id})}">Eliminar</a>
+									<a class="btn btn-danger my-3" th:href="@{/valoraciones/eliminar(id=${valoracion.id})}" onclick="return confirm('¿Estás seguro de que deseas eliminar la valoración?')">Eliminar</a>
                             	</div>
                             	
                             </div>
