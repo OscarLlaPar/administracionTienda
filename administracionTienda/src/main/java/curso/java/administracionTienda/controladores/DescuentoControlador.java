@@ -1,6 +1,8 @@
 package curso.java.administracionTienda.controladores;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,6 +35,14 @@ public class DescuentoControlador {
 			return "index";
 		}
 		
+		if(model.getAttribute("altaDescuento")!=null) {
+			model.addAttribute("altaDescuento", model.getAttribute("altaDescuento"));
+		}
+		
+		if(model.getAttribute("editarDescuento")!=null) {
+			model.addAttribute("editarDescuento", model.getAttribute("editarDescuento"));
+		}
+		
 		model.addAttribute("descuentos", ds.findAll());
 		model.addAttribute("descuentoEnCurso", new Descuento());
 		
@@ -50,16 +60,40 @@ public class DescuentoControlador {
 		System.out.println(inicio);
 		System.out.println(fin);
 		
-		Timestamp fechaInicio=Timestamp.valueOf(inicio+":00");
-		Timestamp fechaFin=Timestamp.valueOf(fin+":00");
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		LocalDate fechaInicio=LocalDate.parse(inicio,formato);
+		LocalDate fechaFin=LocalDate.parse(fin,formato);
+		
+		System.out.println(fechaInicio);
+		System.out.println(fechaFin);
+		
 		descuentoEnCurso.setFechaInicio(fechaInicio);
 		descuentoEnCurso.setFechaFin(fechaFin);
 		
-		
+		System.out.println(descuentoEnCurso);
 		ds.guardarDescuento(descuentoEnCurso);
 		
 		ra.addFlashAttribute("altaDescuento", "Nuevo descuento añadido");
 		return "redirect:/descuentos";
 	}
+	
+	@RequestMapping("/editar")
+	public String editar(@ModelAttribute Descuento descuentoEnCurso, @RequestParam String inicio, @RequestParam String fin, RedirectAttributes ra) {
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		LocalDate fechaInicio=LocalDate.parse(inicio,formato);
+		LocalDate fechaFin=LocalDate.parse(fin,formato);
+		
+		descuentoEnCurso.setFechaInicio(fechaInicio);
+		descuentoEnCurso.setFechaFin(fechaFin);
+		
+		ds.guardarDescuento(descuentoEnCurso);
+		
+		ra.addFlashAttribute("editarDescuento", "Se han guardado los cambios");
+		
+		return "redirect:/descuentos";
+	}
+	
 	
 }

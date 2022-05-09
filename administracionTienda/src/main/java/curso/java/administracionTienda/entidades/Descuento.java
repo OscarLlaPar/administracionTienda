@@ -1,6 +1,7 @@
 package curso.java.administracionTienda.entidades;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,9 +27,9 @@ public class Descuento {
 	private float descuento;
 	@Column(name="fecha_inicio")
 	@DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
-	private Timestamp fechaInicio;
+	private LocalDate fechaInicio;
 	@Column(name="fecha_fin")
 	@DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
-	private Timestamp fechaFin;
+	private LocalDate fechaFin;
 	
 }

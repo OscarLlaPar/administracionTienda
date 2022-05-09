@@ -21,6 +21,10 @@
 						 	<span th:text="${altaDescuento}"></span>
 						 	 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 						</div>
+						<div th:if="${editarDescuento!=null and !editarDescuento.equals('')}" class="alert alert-success alert-dismissible fade show" role="alert">	
+						 	<span th:text="${editarDescuento}"></span>
+						 	 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <a class="btn btn-primary" th:href="@{/descuentos/alta}">Nuevo descuento</a>
@@ -47,11 +51,11 @@
                             					</div>
                             					<div class="col-sm">
                             						<label>Fecha de inicio</label>
-                            						<input class="form-control" type="datetime-local" name="fechaInicio" th:value="${descuento.fechaInicio}">
+                            						<input class="form-control" type="date" name="inicio" th:value="${descuento.fechaInicio}">
                             					</div>
                             					<div class="col-sm">
                             						<label>Fecha de fin</label>
-                            						<input class="form-control" type="datetime-local" name="fechaFin" th:value="${descuento.fechaFin}">
+                            						<input class="form-control" type="date" name="fin" th:value="${descuento.fechaFin}">
                             					</div>
                             				</div>
                             				<input type="hidden" name="id" th:value="${descuento.id}">
