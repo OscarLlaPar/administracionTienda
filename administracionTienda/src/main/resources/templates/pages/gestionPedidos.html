@@ -33,6 +33,7 @@
                                             <th>Fecha</th>
                                             <th>Método pago</th>
                                             <th>Estado</th>
+                                            <th>Descuento</th>
                                             <th>Total</th>
                                             <th></th>
                                             <th></th>
@@ -51,6 +52,7 @@
                                         		<p th:case="'PC'" class="text-warning" ><strong> Pendiente de cancelación</strong></p>
                                         		<p th:case="'C'" class="text-danger"><strong> Cancelado</strong></p>
                                         	</td>
+                                        	<td th:text="${pedido.descuento!=null?pedido.descuento.codigo + ' - ' + pedido.descuento.descuento+'%':'-'}"></td>
                                         	<td th:text="${T(java.lang.String).format('%.2f', pedido.total) + '€'}"></td>
                                         	<td><a class="btn btn-primary" th:href="@{pedidos/detalles(id=${pedido.id})}">Ver detalles</a></td>
                                         	<td th:if="${pedido.estado.equals('PE')}"><a class="btn btn-primary" th:href="@{pedidos/enviar(id=${pedido.id})}">Enviar</a></td>

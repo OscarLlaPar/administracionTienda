@@ -35,6 +35,9 @@ public class Pedido {
 	private String numFactura;
 	@Column(name="total")
 	private double total;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="id_descuento")
+	private Descuento descuento;
 	
 	
 }
