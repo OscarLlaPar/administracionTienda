@@ -68,11 +68,11 @@
                             					</div>
                             					<div class="col-sm">
                             							<label>Precio</label>
-                            							<input size="5" class="form-control" name="precio" type="number" step="any" th:value="${producto.precio}">
+                            							<input class="form-control" name="precio" type="number" step="any" th:value="${producto.precio}">
                             					</div>
                             					<div class="col-sm">
                             						<label>Stock</label>
-                            						<input size="5" class="form-control" name="stock" type="number" th:value="${producto.stock}" th:readonly="${producto.fechaBaja!=null or producto.proveedor.fechaBaja!=null}">
+                            						<input class="form-control" name="stock" type="number" th:value="${producto.stock}" th:readonly="${producto.fechaBaja!=null or producto.proveedor.fechaBaja!=null}">
                             					</div>
                             				</div>
                             				<div class="row">
@@ -85,23 +85,23 @@
                             					
                             					<div class="col-sm">
                             						<label>Fecha de alta</label>
-                            						<input size="5" class="form-control" type="text" th:value="${producto.fechaAlta}" readonly>
+                            						<input class="form-control" type="text" th:value="${producto.fechaAlta}" readonly>
                             					</div>
                             					<div class="col-sm">
                             						<label>Fecha de baja</label>
-                            						<input size="5" class="form-control"  type="text" th:value="${producto.fechaBaja}" readonly>
+                            						<input class="form-control"  type="text" th:value="${producto.fechaBaja}" readonly>
                             					</div>
                             					<div class="col-sm">
                             						<label>Impuesto</label>
-                            						<input size="5" class="form-control" name="impuesto" type="number" step="any" th:value="${producto.impuesto}">
+                            						<input class="form-control" name="impuesto" type="number" step="any" th:value="${producto.impuesto}">
                             					</div>
                             					<div class="col-sm">
                             						<label>Ruta de la imagen</label>
-                            						<input size="5" class="form-control" name="imagen" type="text" th:value="${producto.imagen}">
+                            						<input class="form-control" name="imagen" type="text" th:value="${producto.imagen}">
                             					</div>
                             					<div class="col-sm">
                             						<label>Ruta del audio</label>
-                            						<input size="5" class="form-control" name="audio" type="text" th:value="${producto.audio}">
+                            						<input class="form-control" name="audio" type="text" th:value="${producto.audio}">
                             					</div>
                             				</div>
                             					<input type="hidden" name="id" th:value="${producto.id}">

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import curso.java.administracionTienda.entidades.Descuento;
 import curso.java.administracionTienda.servicios.DescuentoServicio;
 import curso.java.administracionTienda.servicios.UsuarioServicio;
@@ -79,14 +81,17 @@ public class DescuentoControlador {
 	}
 	
 	@RequestMapping("/editar")
-	public String editar(@ModelAttribute Descuento descuentoEnCurso, @RequestParam String inicio, @RequestParam String fin, RedirectAttributes ra) {
+	public String editar(@ModelAttribute Descuento descuentoEnCurso, @RequestParam String inicio, @RequestParam String fin, @RequestParam String porcentaje , RedirectAttributes ra) {
+		
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
+		double descuento=Double.parseDouble(porcentaje);
 		LocalDate fechaInicio=LocalDate.parse(inicio,formato);
 		LocalDate fechaFin=LocalDate.parse(fin,formato);
 		
 		descuentoEnCurso.setFechaInicio(fechaInicio);
 		descuentoEnCurso.setFechaFin(fechaFin);
+		descuentoEnCurso.setDescuento(descuento);
 		
 		ds.guardarDescuento(descuentoEnCurso);
 		

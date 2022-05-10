@@ -1,6 +1,5 @@
 package curso.java.administracionTienda.entidades;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -21,10 +20,10 @@ import lombok.NoArgsConstructor;
 public class Descuento {
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="codigo")
+	@Column(name="codigo", unique=true)
 	private String codigo;
 	@Column(name="descuento")
-	private float descuento;
+	private double descuento;
 	@Column(name="fecha_inicio")
 	@DateTimeFormat(pattern = "dd-MM-yyyy'T'HH:mm")
 	private LocalDate fechaInicio;
