@@ -130,4 +130,17 @@ public class UsuarioServicio{
 		return usuarioRepositorio.findByNombre(nombre);
 	}
 	
+	public List<Usuario> buscarClientesPorNombre(String nombre){
+		return usuarioRepositorio.buscarClientesPorNombre(nombre);
+	}
+	
+	public List<Usuario> buscarEmpleadosPorNombre(String nombre){
+		return usuarioRepositorio.buscarEmpleadosPorNombre(nombre);
+	}
+	
+	public List<Usuario> buscarAdministradoresPorNombre(String nombre){
+		return usuarioRepositorio.buscarAdministradoresPorNombre(nombre);
+	}
+	
+	
 }

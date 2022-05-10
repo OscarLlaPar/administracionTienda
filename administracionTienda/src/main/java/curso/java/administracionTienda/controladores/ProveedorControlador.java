@@ -26,7 +26,7 @@ public class ProveedorControlador {
 	private UsuarioServicio us;
 	
 	@RequestMapping("")
-	public String mostrarProveedores(Model model, HttpSession sesion) {
+	public String mostrarProveedores(@RequestParam(required=false, defaultValue="") String busqueda,Model model, HttpSession sesion) {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
@@ -35,7 +35,7 @@ public class ProveedorControlador {
 			model.addAttribute("altaProveedor", model.getAttribute("altaProveedor"));
 		}
 		
-		model.addAttribute("proveedores", ps.findAll());
+		model.addAttribute("proveedores", ps.buscarProveedoresPorNombre(busqueda));
 		model.addAttribute("proveedorEnCurso", new Proveedor());
 		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		

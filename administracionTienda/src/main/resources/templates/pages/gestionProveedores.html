@@ -27,6 +27,20 @@
                                 <a class="btn btn-primary" th:href="@{/proveedores/alta}">Nuevo proveedor</a>
                             </div>
                         </div>
+                        
+                        <div class="card mb-4 p-2">
+                        	<form th:action="@{/proveedores}">
+                        		<div class="input-group">
+	                        	
+		                        	<input type="search" id="busqueda" class="form-control" name="busqueda" placeholder="Buscar por nombre..."/>
+		                        	<button type="submit" class="btn btn-primary">
+										Buscar
+									</button>
+								
+								</div>
+							</form>
+                        </div>
+                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>

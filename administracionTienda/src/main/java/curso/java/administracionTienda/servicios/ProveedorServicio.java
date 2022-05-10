@@ -57,4 +57,8 @@ public class ProveedorServicio {
 		return proveedorRepositorio.findAllSinBaja();
 	}
 	
+	public List<Proveedor> buscarProveedoresPorNombre(String nombre){
+		return proveedorRepositorio.buscarProveedoresPorNombre(nombre);
+	}
+	
 }

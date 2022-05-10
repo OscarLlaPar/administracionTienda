@@ -47,7 +47,7 @@ public class ProductoControlador {
 	private UsuarioServicio us;
 	
 	@RequestMapping("")
-	public String cargarProductos(Model model, HttpSession sesion) {
+	public String cargarProductos(@RequestParam(required=false, defaultValue="") String busqueda ,Model model, HttpSession sesion) {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
@@ -61,7 +61,7 @@ public class ProductoControlador {
 		}
 		
 		
-		List<Producto> productos = ps.obtenerProductos();
+		List<Producto> productos = ps.findByNombre(busqueda);
 		model.addAttribute("productos", productos);
 		model.addAttribute("categorias", cs.obtenerCategorias());
 		model.addAttribute("proveedores", prs.findAll());

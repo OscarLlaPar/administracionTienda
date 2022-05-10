@@ -157,7 +157,7 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/clientes")
-	public String mostrarClientes(Model model, HttpSession sesion) {
+	public String mostrarClientes(@RequestParam(required=false, defaultValue="") String busqueda, Model model, HttpSession sesion) {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
@@ -166,14 +166,14 @@ public class UsuarioControlador {
 			model.addAttribute("altaUsuario", model.getAttribute("altaUsuario"));
 		}
 		
-		model.addAttribute("clientes", us.mostrarUsuariosPorRol("Cliente"));
+		model.addAttribute("clientes", us.buscarClientesPorNombre(busqueda));
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/gestionClientes";
 	}
 	
 	@RequestMapping("/empleados")
-	public String mostrarEmpleados(Model model, HttpSession sesion) {
+	public String mostrarEmpleados(@RequestParam(required=false, defaultValue="") String busqueda,Model model, HttpSession sesion) {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
@@ -182,7 +182,7 @@ public class UsuarioControlador {
 			model.addAttribute("altaUsuario", model.getAttribute("altaUsuario"));
 		}
 		
-		model.addAttribute("empleados", us.mostrarUsuariosPorRol("Empleado"));
+		model.addAttribute("empleados", us.buscarEmpleadosPorNombre(busqueda));
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/gestionEmpleados";
@@ -334,7 +334,7 @@ public class UsuarioControlador {
 	}
 	
 	@RequestMapping("/administradores")
-	public String mostrarAdministradores(Model model, HttpSession sesion) {
+	public String mostrarAdministradores(@RequestParam(required=false, defaultValue="") String busqueda,Model model, HttpSession sesion) {
 		if(!us.usuarioEnSesion(sesion)) {
 			return "index";
 		}
@@ -343,7 +343,7 @@ public class UsuarioControlador {
 			model.addAttribute("altaUsuario", model.getAttribute("altaUsuario"));
 		}
 		
-		model.addAttribute("administradores", us.mostrarAdministradores());
+		model.addAttribute("administradores", us.buscarAdministradoresPorNombre(busqueda));
 		model.addAttribute("usuarioEnCurso", new Usuario());
 		model.addAttribute("provincias", JsonUtil.obtenerProvincias());
 		return "pages/gestionAdministradores";
