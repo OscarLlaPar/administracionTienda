@@ -51,7 +51,7 @@ public class UsuarioControladorTest {
 	@Test
 	public void probarMostrarPaginaLogin() throws Exception {
 		mvc.perform(
-				get("/login?email=prueba@mail.com&password=123")
+				get("/login")
 				.contentType(MediaType.TEXT_HTML)
 				).andExpect(status().isOk());
 	}

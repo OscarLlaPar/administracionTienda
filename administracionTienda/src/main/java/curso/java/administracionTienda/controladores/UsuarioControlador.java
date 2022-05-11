@@ -104,6 +104,11 @@ public class UsuarioControlador {
 			model.addAttribute("unidadesVendidas", dps.sumUnidades());
 			model.addAttribute("totalVentas", String.format("%.2f", pds.sumTotal()));
 			
+			model.addAttribute("pendientesEnvio", pds.contarPendientesEnvio());
+			model.addAttribute("pendientesCancelacion", pds.contarPendientesCancelacion());
+			model.addAttribute("pendientesCancelacionDetalle", pds.contarPendientesCancelacionDetalle());
+			
+			
 			model.addAttribute("opciones",oms.findAll(u.getRol().getRol()));
 			
 			return "pages/inicio";

@@ -87,4 +87,19 @@ public class PedidoServicio {
 	public LinkedList<Pedido> obtenerPedidosOrdenados(){
 		return pedidoRepositorio.obtenerPedidos();
 	}
+	
+	
+	public int contarPendientesEnvio() {
+		return pedidoRepositorio.contarPendientesEnvio();
+	}
+	
+	public int contarPendientesCancelacion() {
+		return pedidoRepositorio.contarPendientesCancelacion();
+	}
+	
+	public int contarPendientesCancelacionDetalle() {
+		return pedidoRepositorio.contarPendientesCancelacionDetalle();
+	}
+	
+	
 }

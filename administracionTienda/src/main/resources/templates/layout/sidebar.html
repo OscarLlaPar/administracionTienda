@@ -2,7 +2,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	
@@ -10,62 +9,47 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
+                            <a class="nav-link" th:href="@{/login/inicio}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-house-door-fill"></i></div>
+                                Inicio
                             </a>
-                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <div class="sb-sidenav-menu-heading">Gestión</div>
+                            <a class="nav-link" th:href="@{/productos}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-box"></i></div>
+                                Productos
+                            </a>
+                            <a class="nav-link" th:href="@{/pedidos}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-box-arrow-right"></i></div>
+                                Pedidos
+                            </a>
+                            <a class="nav-link" th:href="@{/proveedores}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-truck"></i></div>
+                                Proveedores
+                            </a>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
+                                <div class="sb-nav-link-icon"><i class="bi bi-person-fill"></i></div>
+                                Usuarios
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                    <a class="nav-link" th:href="@{/login/clientes}">Clientes</a>
+                                    <a th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}" class="nav-link" th:href="@{/login/empleados}">Empleados</a>
+                                    <a th:if="${session.usuarioAdministracion.nombre.equals('Admin')}" class="nav-link" th:href="@{/login/administradores}">Administradores</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Pages
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            <a th:if="${session.usuarioAdministracion.rol.rol.equals('Administrador')}"  class="nav-link" th:href="@{/descuentos}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-tags-fill"></i></div>
+                                Descuentos
                             </a>
-                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Error
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">401 Page</a>
-                                            <a class="nav-link" href="404.html">404 Page</a>
-                                            <a class="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
+                            <a th:if="${session.usuarioAdministracion.nombre.equals('Admin')}"  class="nav-link" th:href="@{/valoraciones}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-file-earmark-bar-graph-fill"></i></div>
+                                Valoraciones
                             </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                            <div th:if="${session.usuarioAdministracion.nombre.equals('Admin')}" class="sb-sidenav-menu-heading">Otros</div>
+                            <a th:if="${session.usuarioAdministracion.nombre.equals('Admin')}" class="nav-link" th:href="@{/config}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-gear-fill"></i></div>
+                                Configuración
                             </a>
                         </div>
                     </div>
