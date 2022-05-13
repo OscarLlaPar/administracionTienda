@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.util.MimeTypeUtils;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import curso.java.administracionTienda.entidades.Rol;
@@ -31,12 +31,12 @@ public class UsuarioApiTestIT {
 	public void buscarUsuariosPorNombre() throws Exception{
 		var usuario=crearUsuario();
 		
-		mockMvc.perform(
+		/*mockMvc.perform(
 				MockMvcRequestBuilders.get("/api/usuarios?nombre=admin")
 				.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(usuario))
-				).andExpect(status().isOk());
+				).andExpect(status().isOk());*/
 		
 		var findByNombre=mockMvc.perform(
 				get("/api/usuarios?nombre=admin").accept(MimeTypeUtils.APPLICATION_JSON_VALUE))

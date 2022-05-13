@@ -22,9 +22,21 @@
                             <li class="breadcrumb-item"><a th:href="@{login/inicio}">Inicio</a></li>
                             <li class="breadcrumb-item active">Pedidos</li>
                         </ol>
+                        <h4>Filtrar por estado</h4>
+                        <div class="card mb-4">
+                        	<div class="card-body">
+                        		<form class="btn-group btn-group-toggle" th:action="@{/pedidos/busqueda}" method="post">
+                        			<button type="submit" class="btn btn-secondary" name="busqueda" value="E" th:classappend="${busqueda!=null and busqueda.equals('E')} ? active : btn">Enviados</button>
+                        			<button type="submit" class="btn btn-secondary" name="busqueda" value="PE" th:classappend="${busqueda!=null and busqueda.equals('PE')} ? active : btn">Pendientes de envío</button>
+                        			<button type="submit" class="btn btn-secondary" name="busqueda" value="PCD" th:classappend="${busqueda!=null and busqueda.equals('PCD')} ? active : btn">Pendientes de cancelación de detalle</button>
+                        			<button type="submit" class="btn btn-secondary" name="busqueda" value="PC" th:classappend="${busqueda!=null and busqueda.equals('PC')} ? active : btn">Pendientes de cancelación</button>
+                        			<button type="submit" class="btn btn-secondary" name="busqueda" value="C" th:classappend="${busqueda!=null and busqueda.equals('C')} ? active : btn">Cancelados</button>
+                        		</form>
+                        	</div>
+                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
+                                <i class="bi bi-box-arrow-right"></i>
                                 Tabla de pedidos
                             </div>
                             <div class="card-body overflow-auto">

@@ -24,8 +24,10 @@
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
+                                <i class="bi bi-file-earmark-bar-graph-fill"></i>
                                 Valoraciones
                             </div>
+                            <div class="card-body">
                             <div class="list-group">
                             	<div class="list-group-item" th:each="valoracion : ${valoraciones}">
                             		<div class="d-flow flow-row">
@@ -39,6 +41,8 @@
                             	</div>
                             	
                             </div>
+                     		  	<p th:unless="${valoraciones.size()!=0}" class="text-secondary">No hay valoraciones aún.</p>
+                       		</div>
                         </div>
                     </div>
                 </main>

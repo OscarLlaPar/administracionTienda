@@ -20,4 +20,6 @@ public interface PedidoRepositorio extends JpaRepository<Pedido, Integer> {
 	int contarPendientesCancelacion();
 	@Query(value="SELECT COUNT(*) FROM pedidos WHERE estado='PCD'", nativeQuery= true)
 	int contarPendientesCancelacionDetalle();
+	@Query(value="SELECT * FROM pedidos WHERE estado=?1 ORDER BY fecha DESC", nativeQuery= true)
+	LinkedList<Pedido> obtenerPedidosPorEstado(String estado);
 }

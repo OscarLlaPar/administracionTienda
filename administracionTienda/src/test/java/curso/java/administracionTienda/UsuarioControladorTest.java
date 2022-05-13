@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import curso.java.administracionTienda.controladores.UsuarioControlador;
 import curso.java.administracionTienda.servicios.ConfiguracionServicio;
@@ -50,10 +51,12 @@ public class UsuarioControladorTest {
 	
 	@Test
 	public void probarMostrarPaginaLogin() throws Exception {
-		mvc.perform(
-				get("/login")
+		MvcResult result= mvc.perform(
+				get("/login?email=&password=")
 				.contentType(MediaType.TEXT_HTML)
-				).andExpect(status().isOk());
+				).andExpect(status().isOk()).andReturn();
+		
+		
 	}
 	
 	

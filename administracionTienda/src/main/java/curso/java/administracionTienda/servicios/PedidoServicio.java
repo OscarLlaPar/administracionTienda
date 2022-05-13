@@ -101,5 +101,9 @@ public class PedidoServicio {
 		return pedidoRepositorio.contarPendientesCancelacionDetalle();
 	}
 	
+	public LinkedList<Pedido> obtenerPedidosPorEstado(String estado){
+		return pedidoRepositorio.obtenerPedidosPorEstado(estado);
+	}
+	
 	
 }

@@ -117,4 +117,11 @@ public class PedidoControlador {
 		return "redirect:/pedidos/detalles?id="+idPedido;
 	}
 	
+	@RequestMapping("/busqueda")
+	public String busqueda(@RequestParam String busqueda, Model model) {
+		model.addAttribute("pedidos", ps.obtenerPedidosPorEstado(busqueda));
+		model.addAttribute("busqueda", busqueda);
+		return "pages/gestionPedidos";
+	}
+	
 }
