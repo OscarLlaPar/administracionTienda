@@ -45,16 +45,17 @@ public class ProductoServicio {
 	 * @param id
 	 */
 	
-	public void darDeBaja(int id) {
+	public Producto darDeBaja(int id) {
 		Producto p= obtenerProducto(id);
 		p.setFechaBaja(new Timestamp(System.currentTimeMillis()));
-		productoRepositorio.save(p);
+		return productoRepositorio.save(p);
+		
 	}
 	
-	public void quitarBaja(int id) {
+	public Producto quitarBaja(int id) {
 		Producto p= obtenerProducto(id);
 		p.setFechaBaja(null);
-		productoRepositorio.save(p);
+		return productoRepositorio.save(p);
 	}
 	
 	/**
@@ -62,8 +63,8 @@ public class ProductoServicio {
 	 * @param p
 	 */
 	
-	public void editarProducto(Producto p) {
-		productoRepositorio.save(p);
+	public Producto editarProducto(Producto p) {
+		return productoRepositorio.save(p);
 	}
 	
 	/**
@@ -71,8 +72,8 @@ public class ProductoServicio {
 	 * @param productos
 	 */
 	
-	public void guardarProductos(ArrayList<Producto> productos) {
-		productoRepositorio.saveAll(productos);
+	public List<Producto> guardarProductos(ArrayList<Producto> productos) {
+		return productoRepositorio.saveAll(productos);
 	}
 	
 	/**

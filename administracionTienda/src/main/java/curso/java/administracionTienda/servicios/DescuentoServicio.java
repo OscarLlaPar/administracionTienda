@@ -18,8 +18,9 @@ public class DescuentoServicio {
 		return dr.findAll();
 	}
 	
-	public void guardarDescuento(Descuento d) {
+	public Descuento guardarDescuento(Descuento d) {
 		dr.save(d);
+		return d;
 	}
 	
 }

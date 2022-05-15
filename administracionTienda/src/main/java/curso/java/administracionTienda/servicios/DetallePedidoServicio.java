@@ -35,8 +35,8 @@ public class DetallePedidoServicio {
 		
 	}
 	
-	public void guardarDetallePedido(DetallePedido p) {
-		detallePedidoRepositorio.save(p);
+	public DetallePedido guardarDetallePedido(DetallePedido p) {
+		return detallePedidoRepositorio.save(p);
 	}
 	
 	public List<DetallePedido> obtenerDetalles(int idPedido){

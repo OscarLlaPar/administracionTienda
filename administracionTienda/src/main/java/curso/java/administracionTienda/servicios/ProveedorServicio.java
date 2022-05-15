@@ -28,8 +28,8 @@ public class ProveedorServicio {
 	 * @param p
 	 */
 	
-	public void guardarProveedor(Proveedor p) {
-		proveedorRepositorio.save(p);
+	public Proveedor guardarProveedor(Proveedor p) {
+		return proveedorRepositorio.save(p);
 	}
 	
 	/**
@@ -37,20 +37,22 @@ public class ProveedorServicio {
 	 * @param id
 	 */
 	
-	public void bajaProveedor(int id) {
+	public Proveedor bajaProveedor(int id) {
 		Proveedor p=findById(id);
 		p.setFechaBaja(new Timestamp(System.currentTimeMillis()));
 		proveedorRepositorio.save(p);
+		return p;
 	}
 	
 	public Proveedor findById(int id) {
 		return proveedorRepositorio.findById(id).get();
 	}
 	
-	public void quitarBajaProveedor(int id) {
+	public Proveedor quitarBajaProveedor(int id) {
 		Proveedor p=findById(id);
 		p.setFechaBaja(null);
 		proveedorRepositorio.save(p);
+		return p;
 	}
 	
 	public List<Proveedor> findAllSinBaja(){

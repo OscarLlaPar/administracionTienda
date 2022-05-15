@@ -84,8 +84,8 @@ public class UsuarioServicio{
 	 * @param u
 	 */
 	
-	public void editarUsuario(Usuario u) {
-		usuarioRepositorio.save(u);
+	public Usuario editarUsuario(Usuario u) {
+		return usuarioRepositorio.save(u);
 	}
 	
 	/**
@@ -93,14 +93,14 @@ public class UsuarioServicio{
 	 * @param u
 	 */
 	
-	public void bajaUsuario(Usuario u) {
+	public Usuario bajaUsuario(Usuario u) {
 		u.setFechaBaja(new Timestamp(System.currentTimeMillis()));
-		editarUsuario(u);
+		return editarUsuario(u);
 	}
 	
-	public void quitarBajaUsuario(Usuario u) {
+	public Usuario quitarBajaUsuario(Usuario u) {
 		u.setFechaBaja(null);
-		editarUsuario(u);
+		return editarUsuario(u);
 	}
 	
 	/**

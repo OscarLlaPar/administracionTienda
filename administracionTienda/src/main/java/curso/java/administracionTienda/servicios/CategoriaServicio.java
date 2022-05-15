@@ -39,8 +39,8 @@ public class CategoriaServicio {
 	 * @param c
 	 */
 	
-	public void guardarCategoria(Categoria c) {
-		categoriaRepositorio.save(c);
+	public Categoria guardarCategoria(Categoria c) {
+		return categoriaRepositorio.save(c);
 	}
 	
 }

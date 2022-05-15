@@ -53,8 +53,8 @@ public class PedidoServicio {
 	 * @param p
 	 */
 	
-	public void guardarPedido(Pedido p) {
-		pedidoRepositorio.save(p);
+	public Pedido guardarPedido(Pedido p) {
+		return pedidoRepositorio.save(p);
 	}
 	
 	/**

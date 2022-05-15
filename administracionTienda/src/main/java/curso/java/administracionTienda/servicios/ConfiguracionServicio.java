@@ -38,20 +38,21 @@ public class ConfiguracionServicio {
 	 * @param c
 	 */
 	
-	public void guardarConfiguracion(Configuracion c) {
-		cr.save(c);
+	public Configuracion guardarConfiguracion(Configuracion c) {
+		return cr.save(c);
 	}
 	
 	/**
 	 * 
 	 */
 	
-	public void actualizarNumFacturas() {
+	public Configuracion actualizarNumFacturas() {
 		Configuracion c=obtenerConfiguracion("numFacturas");
 		int numFacturas=Integer.parseInt(c.getValor());
 		numFacturas++;
 		c.setValor(String.valueOf(numFacturas));
 		guardarConfiguracion(c);
+		return c;
 	}
 	
 
