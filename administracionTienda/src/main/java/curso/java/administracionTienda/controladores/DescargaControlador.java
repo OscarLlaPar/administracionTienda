@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import curso.java.administracionTienda.servicios.ProductoServicio;
 import curso.java.administracionTienda.utilidades.ProductoUtil;
-
+/*
 @RestController
 public class DescargaControlador {
 	
@@ -38,4 +38,4 @@ public class DescargaControlador {
 	      
 	      return responseEntity;
 	   }
-}
+}*/

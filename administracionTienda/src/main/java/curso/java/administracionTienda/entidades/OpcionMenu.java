@@ -1,9 +1,13 @@
 package curso.java.administracionTienda.entidades;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,8 +21,9 @@ public class OpcionMenu {
 	
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="id_rol")
-	private int rol;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name="id_rol")
+	private Rol rol;
 	@Column(name="nombre_opcion")
 	private String nombreOpcion;
 	@Column(name="url_opcion")

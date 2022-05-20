@@ -40,7 +40,8 @@ public class UsuarioServicio{
 		
 		Usuario u=usuarioRepositorio.findByEmail(email);
 
-		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(password))&& !u.getRol().getRol().equals("Cliente") && u.getFechaBaja()==null) {
+		if (u!=null && u.getClave().equals(UsuarioUtil.obtenerSha2(password))&& 
+				!u.getRol().getRol().equals("Cliente") && u.getFechaBaja()==null) {
 			return u;
 		}
 		else {

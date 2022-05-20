@@ -120,7 +120,7 @@ public class ProductoControlador {
 		ra.addFlashAttribute("altaCategoria", "Nueva categoría añadida");
 		return "redirect:/productos";
 	}
-	
+	/*
 	@RequestMapping("/exportar")
 	public String exportar() {
 		ProductoUtil.escribirProductos(ps.obtenerProductos(), "prouctos.xls");
@@ -137,8 +137,8 @@ public class ProductoControlador {
 	      ArrayList<Producto> productos=leerFichero(convertFile);
 	      ps.guardarProductos(productos);
 		return "redirect:/productos";
-	}
-	
+	}*/
+	/*
 	public ArrayList<Producto> leerFichero(File archivo){
 		ArrayList<Producto> listaProductos = new ArrayList<>();
         	
@@ -162,8 +162,9 @@ public class ProductoControlador {
 	                String imagen=hoja.getCell(9,i).getContents();
 	                String audio=hoja.getCell(10,i).getContents();
 	                int idProveedor=Integer.parseInt(hoja.getCell(11,i).getContents());
+	                Categoria c=cs.obtenerCategoria(idCategoria);
 	                
-	                Producto p=new Producto(0,idCategoria,nombre,descripcion,precio,stock,null,null,impuesto,imagen,audio, prs.findById(idProveedor));
+	                Producto p=new Producto(0,c,nombre,descripcion,precio,stock,null,null,impuesto,imagen,audio, prs.findById(idProveedor));
 	                listaProductos.add(p);
 	            }
 			} catch (BiffException e) {
@@ -176,5 +177,5 @@ public class ProductoControlador {
             
             return listaProductos;
     }
-	
+	*/
 }

@@ -17,7 +17,7 @@ public class AdministracionTiendaApplication {
 		SpringApplication.run(AdministracionTiendaApplication.class, args);
 		
 		
-		ArrayList<String> provincias = new ArrayList<>();
+		/*ArrayList<String> provincias = new ArrayList<>();
 		
 		String url = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=provincias-espanolas&q=&sort=provincia&facet=provincia";
 	      RestTemplate restTemplate = new RestTemplate();
@@ -33,7 +33,7 @@ public class AdministracionTiendaApplication {
 	    	 provincias.add(lhm.get("name").toString());
 	     }
 	     
-	     System.out.println(provincias);
+	     System.out.println(provincias);*/
 	     
 	}
 

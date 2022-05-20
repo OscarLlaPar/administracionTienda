@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import curso.java.administracionTienda.entidades.Categoria;
 import curso.java.administracionTienda.entidades.Producto;
 import curso.java.administracionTienda.entidades.Proveedor;
 import curso.java.administracionTienda.modelos.ProductoRepositorio;
@@ -37,9 +38,9 @@ public class ProductoServicioTest {
 	
 	@BeforeAll
 	public static void beforeAll() {
-		productos.add(new Producto(1,1,"Producto 1", "Descripcion 1",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen1","/audio1",new Proveedor()));
-		productos.add(new Producto(2,2,"Producto 2", "Descripcion 2",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen2","/audio2",new Proveedor()));
-		productos.add(new Producto(3,3,"Producto 3", "Descripcion 3",12,12,new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),12,"/imagen2","/audio2",new Proveedor()));
+		productos.add(new Producto(1,new Categoria(),"Producto 1", "Descripcion 1",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen1","/audio1",new Proveedor()));
+		productos.add(new Producto(2,new Categoria(),"Producto 2", "Descripcion 2",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen2","/audio2",new Proveedor()));
+		productos.add(new Producto(3,new Categoria(),"Producto 3", "Descripcion 3",12,12,new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),12,"/imagen2","/audio2",new Proveedor()));
 	}
 	
 	@Test
@@ -105,9 +106,9 @@ public class ProductoServicioTest {
 	@Test
 	public void guardarProductosTest() {
 		ArrayList<Producto> lista=new ArrayList<>();
-		lista.add(new Producto(4,1,"Producto 4", "Descripcion 4",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen4","/audio4",new Proveedor()));
-		lista.add(new Producto(5,1,"Producto 5", "Descripcion 5",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen5","/audio5",new Proveedor()));
-		lista.add(new Producto(6,1,"Producto 6", "Descripcion 6",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen6","/audio6",new Proveedor()));
+		lista.add(new Producto(4,new Categoria(),"Producto 4", "Descripcion 4",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen4","/audio4",new Proveedor()));
+		lista.add(new Producto(5,new Categoria(),"Producto 5", "Descripcion 5",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen5","/audio5",new Proveedor()));
+		lista.add(new Producto(6,new Categoria(),"Producto 6", "Descripcion 6",12,12,new Timestamp(System.currentTimeMillis()),null,12,"/imagen6","/audio6",new Proveedor()));
 		
 		when(pr.saveAll(lista)).thenReturn(lista);
 		

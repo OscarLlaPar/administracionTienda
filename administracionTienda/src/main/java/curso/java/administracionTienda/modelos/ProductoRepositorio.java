@@ -13,7 +13,7 @@ public interface ProductoRepositorio extends JpaRepository<Producto, Integer> {
 	@Query(value="SELECT * FROM productos p INNER JOIN valoraciones v ON p.id=v.id_producto GROUP BY id_producto ORDER BY AVG(valoracion) DESC LIMIT 5", nativeQuery= true)
 	LinkedHashSet<Producto> findAllSortByValoracion();
 	
-	@Query(value="SELECT * FROM productos p INNER JOIN detalles_pedido d ON p.id=d.id_producto INNER JOIN pedidos pd ON pd.id=d.id_pedido AND pd.estado='E' GROUP BY id_producto ORDER BY SUM(unidades) DESC LIMIT 5", nativeQuery= true)
+	@Query(value="SELECT p.id,id_categoria,nombre,descripcion,precio,stock,fecha_alta,fecha_baja,p.impuesto,imagen,audio,id_proveedor FROM productos p INNER JOIN detalles_pedido d ON p.id=d.id_producto INNER JOIN pedidos pd ON pd.id=d.id_pedido AND pd.estado='E' GROUP BY id_producto ORDER BY SUM(unidades) DESC LIMIT 5", nativeQuery= true)
 	LinkedHashSet<Producto> findAllSortByPedidos();
 	
 	@Query(value="SELECT * FROM productos p WHERE nombre LIKE %?1%", nativeQuery= true)

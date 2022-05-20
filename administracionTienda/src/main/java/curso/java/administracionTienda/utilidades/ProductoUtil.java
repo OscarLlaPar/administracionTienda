@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import curso.java.administracionTienda.entidades.Categoria;
 import curso.java.administracionTienda.entidades.Producto;
 import curso.java.administracionTienda.servicios.CategoriaServicio;
 import curso.java.administracionTienda.servicios.ProveedorServicio;
@@ -30,6 +31,9 @@ public class ProductoUtil {
 	
 	@Autowired
 	private static ProveedorServicio ps;
+	
+	@Autowired
+	private static CategoriaServicio cs;
 	
 	/**
 	 * 
@@ -57,8 +61,9 @@ public class ProductoUtil {
 	                String imagen=hoja.getCell(9,i).getContents();
 	                String audio=hoja.getCell(10,i).getContents();
 	                int idProveedor=Integer.parseInt(hoja.getCell(11,i).getContents());
+	                Categoria c=cs.obtenerCategoria(idCategoria);
 	                
-	                Producto p=new Producto(0,idCategoria,nombre,descripcion,precio,stock,null,null,impuesto,imagen,audio, ps.findById(idProveedor));
+	                Producto p=new Producto(0,c,nombre,descripcion,precio,stock,null,null,impuesto,imagen,audio, ps.findById(idProveedor));
 	                listaProductos.add(p);
 	            }
 			} catch (BiffException e) {
@@ -123,7 +128,7 @@ public class ProductoUtil {
 	    	            jxl.write.Label descripcion = new jxl.write.Label(2, p.getId(), p.getDescripcion());
 	    	            hoja.addCell(descripcion);
 	    	            
-	    	            jxl.write.Number categoria = new jxl.write.Number(3, p.getId(), p.getCategoria());
+	    	            jxl.write.Label categoria = new jxl.write.Label(3, p.getId(), p.getCategoria().getNombre());
 	    	            hoja.addCell(categoria);
 	    	            
 	    	            jxl.write.Number precio = new jxl.write.Number(4, p.getId(), p.getPrecio());

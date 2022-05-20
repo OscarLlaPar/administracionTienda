@@ -52,13 +52,6 @@ public class UsuarioControlador {
 	
 	@RequestMapping("")
 	public String login(@RequestParam String email, @RequestParam String password, HttpSession sesion, Model model) {
-		if(us.findByNombre("Admin")==null){
-			us.editarUsuario(new Usuario(0, "admin@admin.com", rs.obtenerRol("Administrador"), UsuarioUtil.obtenerSha2("admin"), "Admin","istra","dor","C/ Administrador nº 1", "Zamora", "Zamora", "666666666", "12345678Z",null));
-		}
-		
-		if(model.getAttribute("passCambiada")!=null) {
-			model.addAttribute("passCambiada", model.getAttribute("passCambiada"));
-		}
 		
 		Usuario u=us.verificarUsuario(email, password);
 		if(u!=null) {

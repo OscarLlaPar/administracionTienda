@@ -2,6 +2,7 @@ package curso.java.administracionTienda.entidades;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,8 +22,9 @@ import lombok.NoArgsConstructor;
 public class Producto {
 	@Id @GeneratedValue
 	private int id;
-	@Column(name="id_categoria")
-	private int categoria;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name="id_categoria")
+	private Categoria categoria;
 	@Column(name="nombre")
 	private String nombre;
 	@Column(name="descripcion")

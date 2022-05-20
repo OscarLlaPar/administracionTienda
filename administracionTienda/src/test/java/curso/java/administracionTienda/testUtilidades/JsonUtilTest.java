@@ -1,5 +1,6 @@
 package curso.java.administracionTienda.testUtilidades;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,7 +17,9 @@ public class JsonUtilTest {
 		ArrayList<String> provincias=JsonUtil.obtenerProvincias();
 		
 		assertNotNull(provincias);
+		assertTrue(provincias.size()!=0);
 		assertTrue(provincias.size()==52);
+		assertEquals(provincias.get(0),"A Coruña");
 	}
 	
 }
